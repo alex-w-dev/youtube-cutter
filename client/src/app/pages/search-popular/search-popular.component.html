@@ -1,0 +1,28 @@
+<div fxLayout="row" fxFlexFill>
+  <div fxFlex="1 1 200px">
+    <div fxLayout="column" fxFlexFill>
+      <div fxFlex="1 1 20px">
+        <select (change)="setVideoCategoryId($event.target.value)">
+          <option *ngFor="let videoCategory of youtubeVideoCategoriesListResult?.items" [value]="videoCategory.id">
+            {{videoCategory.snippet.title}}
+          </option>
+        </select>
+      </div>
+      <div fxFlex="0 1" class="video-list">
+        <div *ngFor="let videoItem of youtubeSearchResult?.items"
+             (click)="setVideoId(videoItem.id.videoId)">
+          <img [attr.src]="videoItem.snippet.thumbnails.default?.url">
+          <div>{{videoItem.snippet.title}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex>
+    <youtube-player
+      *ngIf="videoId"
+      [height]="400"
+      [width]="600"
+      [videoId]="videoId"
+    ></youtube-player>
+  </div>
+</div>

@@ -35,7 +35,7 @@
     "dataSource": "db",
     "public": false
   },
-  "global-list": {
+  "youtube": {
     "dataSource": "db",
     "public": true
   }

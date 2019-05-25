@@ -1,6 +1,6 @@
 {
-  "name": "global-list",
-  "plural": "global-list",
+  "name": "youtube",
+  "plural": "youtube",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
