@@ -1,0 +1,22 @@
+{
+  "name": "global-list",
+  "plural": "global-list",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "yId": {
+      "type": "string",
+      "required": true
+    },
+    "yTitle": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
