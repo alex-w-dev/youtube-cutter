@@ -18,5 +18,6 @@
       "limit": "100kb"
     },
     "cors": false
-  }
+  },
+  "googleApiKey": "AIzaSyDD0eO55LO7jt4LMMhzNE0WO1_lXLkI4PE"
 }
