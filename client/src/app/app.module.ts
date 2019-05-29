@@ -8,6 +8,7 @@ import {SearchPopularModule} from "./pages/search-popular/search-popular.module"
 import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
 import {YoutubeService} from "./services/youtube.service";
+import {VideoFragmentationModule} from "./pages/video-fragmentation/video-fragmentation.module";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {YoutubeService} from "./services/youtube.service";
 
     // pages
     SearchPopularModule,
+    VideoFragmentationModule,
   ],
   providers: [
     ApiService,

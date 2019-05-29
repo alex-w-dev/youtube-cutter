@@ -11,6 +11,7 @@
     "posttest": "npm run lint && npm audit"
   },
   "dependencies": {
+    "@microlink/youtube-dl": "^2.0.0",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "googleapis": "^40.0.0",
@@ -21,7 +22,9 @@
     "loopback-component-model-fragments": "^0.1.5",
     "loopback-connector-mongodb": "^4.2.0",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^3.0.0"
+    "strong-error-handler": "^3.0.0",
+    "youtube-dl": "^2.0.0",
+    "ytdl-core": "^0.29.2"
   },
   "devDependencies": {
     "eslint": "^3.17.1",

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,29 @@ export class ApiService {
 
   DELETE(url: string) {
     return this.http.delete(this.getFullUrl(url));
+  }
+
+  DOWNLOAD_FILE(url: string) {
+    return this.GET(url, { responseType: 'blob', observe: 'response' })
+      .pipe(map((res) => {
+        return {
+          blob: new Blob([res.body], {type: res.headers.get('Content-Type')}),
+          filename: res.headers.get('File-Name'),
+        };
+      }))
+      .pipe(map((data) => {
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.style.display = 'none';
+
+        const fileUrl = window.URL.createObjectURL(data.blob);
+        // a.href = fileUrl;
+        //         // a.download = data.filename;
+        //         // a.click();
+        //         //
+        //         // window.URL.revokeObjectURL(fileUrl);
+        //         // document.body.removeChild(a);
+        return fileUrl;
+      }));
   }
 }
