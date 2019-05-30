@@ -1,4 +1,14 @@
-<div fxLayout="column" fxFlexFill>
-  <video #video id="video" controls="controls" title="Video title">
+<div fxLayout="column" fxFlexFill fxLayoutGap="10px">
+  <video #video id="video" controls="controls" (timeupdate)="onVideoTimeUpdate($event)">
   </video>
+  <div class="under-video"></div>
+  <input type="text" #text [ngModel]="videoCurrentTime" (keyup)="onVideoCurrentTimeInputChange(text.value)">
+  <div class="thumbnails" fxLayout="column">
+    <div class="position-thumbs start-position-thumbs">
+      <img *ngFor="let thumb of startThumbs"
+           [alt]="thumb.time"
+           [src]="thumb.data">
+    </div>
+    <div class="position-thumbs end-position-thumbs"></div>
+  </div>
 </div>

@@ -2,11 +2,19 @@
   height: 100vh;
   display: block;
 
-  .container{
-    height: 100%;
+  .under-video {
+    position: relative;
+    height: 20px;
   }
 
-  .video-list{
-    overflow-y: auto;
+  .position-thumbs{
+    height: 100px;
+
+    &.start-position-thumbs{
+      background: #ffe8be;
+    }
+    &.end-position-thumbs{
+      background: #c3d2ff;
+    }
   }
 }

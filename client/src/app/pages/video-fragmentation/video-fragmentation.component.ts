@@ -2,6 +2,12 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {YoutubeService} from "../../services/youtube.service";
 import {ApiService} from "../../services/api.service";
 
+interface IThumbnail {
+  time: number;
+  data: string;
+  selected?: boolean;
+}
+
 @Component({
   selector: 'app-video-fragmentation',
   templateUrl: './video-fragmentation.component.html',
@@ -10,25 +16,75 @@ import {ApiService} from "../../services/api.service";
 export class VideoFragmentationComponent implements OnInit {
   @Input() videoId: string = '-rdm3sPKtIg';
   @ViewChild('video') videoElement;
+  video: HTMLVideoElement;
 
   private videoUrl: string;
+  private videoCurrentTime: number;
+  private startThumbs: IThumbnail[] = [];
+  private endThumbs: IThumbnail[] = [];
+  private canvas: HTMLCanvasElement = document.createElement('canvas');
+  private canvasContext: CanvasRenderingContext2D = this.canvas.getContext('2d');
+  private programVideoTimeChanging = false;
 
   constructor(private youtubeService: YoutubeService, private apiService: ApiService) { }
 
   ngOnInit() {
+    this.video = this.videoElement.nativeElement;
     this.videoUrl = this.youtubeService.getLowestVideoUrl(this.videoId);
     this.youtubeService
       .getLowestVideo(this.videoId, (data) => {
         console.log(data, '----');
       })
       .subscribe((videoData) => {
-        this.videoElement.nativeElement.src = videoData;
+        this.video.src = videoData;
 
-        this.videoElement.nativeElement.addEventListener('loadedmetadata', () => {
-          console.log(this.videoElement.nativeElement.videoWidth, 'this.videoElement.nativeElement.videoWidth');
-          console.log(this.videoElement.nativeElement.videoHeight, 'this.videoElement.nativeElement.videoHeight');
+        this.video.addEventListener('loadedmetadata', () => {
+          // console.log(this.video.videoWidth, 'this.video.videoWidth');
+          // console.log(this.video.videoHeight, 'this.video.videoHeight');
+          this.canvas.width = this.video.videoWidth;
+          this.canvas.height = this.video.videoHeight;
         })
-        // this.videoElement.nativeElement.play();
+        // this.video.play();
       });
   }
+
+  private onVideoCurrentTimeInputChange($event) {
+    this.video.currentTime = parseFloat($event || 0);
+  }
+
+  private onVideoTimeUpdate($event) {
+    this.renewThumbs(this.startThumbs);
+    this.renewThumbs(this.endThumbs);
+  }
+  
+  private renewThumbs(thumbs: VideoFragmentationComponent['startThumbs'] | VideoFragmentationComponent['endThumbs'] ) {
+    console.log(1, '1');
+    if (thumbs.some(t => t.selected) || this.programVideoTimeChanging) return;
+
+    thumbs.length = 0;
+    const originalVideoCurrentTime = this.video.currentTime;
+    const timeSet = new Set();
+    for (let s = -5; s < 5; s+=3) {
+      let time = this.video.currentTime + s;
+      if (time < 0) time = 0;
+      if (time > this.video.duration) time = this.video.duration;
+      timeSet.add(time);
+    }
+
+    this.programVideoTimeChanging = true;
+    for (const time of Array.from(timeSet)) {
+      this.video.currentTime = time;
+      this.canvasContext.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+      const dataURL = this.canvas.toDataURL();
+      thumbs.push({
+        data: dataURL,
+        time: time,
+      })
+    }
+    this.programVideoTimeChanging = false;
+
+    this.video.currentTime = originalVideoCurrentTime;
+  }
+  
 }
+
