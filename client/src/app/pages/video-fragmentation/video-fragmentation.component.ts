@@ -17,14 +17,18 @@ export class VideoFragmentationComponent implements OnInit {
 
   ngOnInit() {
     this.videoUrl = this.youtubeService.getLowestVideoUrl(this.videoId);
-    this.youtubeService.getLowestVideo(this.videoId).subscribe((videoData) => {
-      this.videoElement.nativeElement.src = videoData;
-
-      this.videoElement.nativeElement.addEventListener('loadedmetadata', () => {
-        console.log(this.videoElement.nativeElement.videoWidth, 'this.videoElement.nativeElement.videoWidth');
-        console.log(this.videoElement.nativeElement.videoHeight, 'this.videoElement.nativeElement.videoHeight');
+    this.youtubeService
+      .getLowestVideo(this.videoId, (data) => {
+        console.log(data, '----');
       })
-      // this.videoElement.nativeElement.play();
-    });
+      .subscribe((videoData) => {
+        this.videoElement.nativeElement.src = videoData;
+
+        this.videoElement.nativeElement.addEventListener('loadedmetadata', () => {
+          console.log(this.videoElement.nativeElement.videoWidth, 'this.videoElement.nativeElement.videoWidth');
+          console.log(this.videoElement.nativeElement.videoHeight, 'this.videoElement.nativeElement.videoHeight');
+        })
+        // this.videoElement.nativeElement.play();
+      });
   }
 }

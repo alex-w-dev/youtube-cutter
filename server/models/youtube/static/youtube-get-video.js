@@ -34,11 +34,16 @@ async function responseWidthLoad(ctx, videoId) {
 }
 
 async function responsePipeGoogle(ctx, videoId) {
-  getYld(videoId).pipe(ctx.res);
+  getYld(videoId)
+    .on('response', (res) => {
+      ctx.res.set(res.headers);
+      ctx.res.set('Access-Control-Expose-Headers', 'content-length');
+    })
+    .pipe(ctx.res);
 }
 
 module.exports = function (GlobalList) {
-  GlobalList.getLowestVideo = function (ctx, videoId = 'LkPDFZnc-Z8') {
+  GlobalList.getLowestVideo = function (ctx, videoId) {
     const  searchList = async () => {
       await responsePipeGoogle(ctx, videoId);
 
@@ -52,7 +57,7 @@ module.exports = function (GlobalList) {
     "accepts": [ {
       'arg': 'ctx', type: 'any', http: { source: 'context' }
     }, {
-      'arg': 'videoId', type: 'string', http: { source: 'path' },
+      'arg': 'videoId', type: 'string', required: true, http: { source: 'path' },
     }],
     "http": [
       {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpEventType} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +34,19 @@ export class ApiService {
     return this.http.delete(this.getFullUrl(url));
   }
 
-  GET_BLOB(url: string): Observable<string> {
-    return this.GET(url, { responseType: 'blob', observe: 'response' })
+  GET_BLOB(url: string, onProgress?: (v: any) => void): Observable<string> {
+    return this.GET(url, { responseType: 'blob', observe: 'events', reportProgress: true })
+      .pipe(filter((res) => {
+        let contentLength = 0;
+        if (res.type === HttpEventType.ResponseHeader) {
+          contentLength = res.headers.get('content-length');
+        }
+        if (res.type === HttpEventType.DownloadProgress && onProgress) {
+          onProgress(Object.assign(res, { contentLength }));
+        }
+
+        return res.type === HttpEventType.Response;
+      }))
       .pipe(map((res) => {
         return {
           blob: new Blob([res.body], {type: res.headers.get('Content-Type')}),
