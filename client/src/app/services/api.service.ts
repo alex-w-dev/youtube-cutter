@@ -34,6 +34,19 @@ export class ApiService {
     return this.http.delete(this.getFullUrl(url));
   }
 
+  GET_BLOB(url: string): Observable<string> {
+    return this.GET(url, { responseType: 'blob', observe: 'response' })
+      .pipe(map((res) => {
+        return {
+          blob: new Blob([res.body], {type: res.headers.get('Content-Type')}),
+          filename: res.headers.get('File-Name'),
+        };
+      }))
+      .pipe(map((data) => {
+        return window.URL.createObjectURL(data.blob);
+      }));
+  }
+
   DOWNLOAD_FILE(url: string) {
     return this.GET(url, { responseType: 'blob', observe: 'response' })
       .pipe(map((res) => {
@@ -48,13 +61,12 @@ export class ApiService {
         a.style.display = 'none';
 
         const fileUrl = window.URL.createObjectURL(data.blob);
-        // a.href = fileUrl;
-        //         // a.download = data.filename;
-        //         // a.click();
-        //         //
-        //         // window.URL.revokeObjectURL(fileUrl);
-        //         // document.body.removeChild(a);
-        return fileUrl;
+        a.href = fileUrl;
+        a.download = data.filename;
+        a.click();
+
+        window.URL.revokeObjectURL(fileUrl);
+        document.body.removeChild(a);
       }));
   }
 }

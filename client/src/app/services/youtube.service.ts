@@ -57,7 +57,11 @@ export class YoutubeService {
     return this.apiService.GET('youtube/getLowestVideoFormat/'+videoId)
   }
 
-  getLowestVideo(videoId: string): Observable<any> {
-    return this.apiService.DOWNLOAD_FILE('youtube/getLowestVideo/'+videoId);
+  getLowestVideo(videoId: string): Observable<string> {
+    return this.apiService.GET_BLOB('youtube/getLowestVideo/'+videoId);
+  }
+
+  getLowestVideoUrl(videoId: string): string {
+    return this.apiService.getFullUrl('youtube/getLowestVideo/'+videoId);
   }
 }
