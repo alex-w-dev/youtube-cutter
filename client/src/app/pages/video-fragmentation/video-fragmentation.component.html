@@ -1,14 +1,25 @@
 <div fxLayout="column" fxFlexFill fxLayoutGap="10px">
-  <video #video id="video" controls="controls" (timeupdate)="onVideoTimeUpdate($event)">
+  <video #video id="video" controls="controls">
   </video>
   <div class="under-video"></div>
-  <input type="text" #text [ngModel]="videoCurrentTime" (keyup)="onVideoCurrentTimeInputChange(text.value)">
+  <input type="button" (click)="renewThumbs()" value="renew thumbs">
+  <input type="button" (click)="playSelectedThumbs()" value="play Selected">
   <div class="thumbnails" fxLayout="column">
-    <div class="position-thumbs start-position-thumbs">
+    <div class="position-thumbs start-position-thumbs"
+         [ngClass]="{ 'some-selected': isSomeSelected(startThumbs) }">
       <img *ngFor="let thumb of startThumbs"
+           [ngClass]="{ 'selected': thumb.selected }"
+           (click)="toggleSelection(thumb, startThumbs)"
            [alt]="thumb.time"
            [src]="thumb.data">
     </div>
-    <div class="position-thumbs end-position-thumbs"></div>
+    <div class="position-thumbs end-position-thumbs"
+         [ngClass]="{ 'some-selected': isSomeSelected(endThumbs) }">
+      <img *ngFor="let thumb of endThumbs"
+           [ngClass]="{ 'selected': thumb.selected }"
+           (click)="toggleSelection(thumb, endThumbs)"
+           [alt]="thumb.time"
+           [src]="thumb.data">
+    </div>
   </div>
 </div>

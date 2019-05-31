@@ -8,13 +8,31 @@
   }
 
   .position-thumbs{
-    height: 100px;
+    display: flex;
+    height: 150px;
+    overflow-x: scroll;
 
     &.start-position-thumbs{
       background: #ffe8be;
     }
     &.end-position-thumbs{
       background: #c3d2ff;
+    }
+
+    &.some-selected {
+      img {
+        filter: blur(3px) grayscale(70%);
+
+        &.selected {
+          filter: none;
+        }
+      }
+    }
+
+    img{
+      height: 100%;
+      margin-right: 5px;
+      filter: grayscale(70%);
     }
   }
 }
