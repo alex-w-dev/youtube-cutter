@@ -11,7 +11,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getFullUrl(url) {
-    return `http://localhost:3000/api/${url}`;
+    return `http://localhost:3004/api/${url}`;
   }
 
   GET(url: string, options?): Observable<any> {
