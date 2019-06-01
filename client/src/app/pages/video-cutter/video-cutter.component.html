@@ -1,0 +1,23 @@
+<div fxLayout="column" fxFlexFill fxLayoutGap="10px">
+  <video #video id="video" controls="controls">
+  </video>
+  <div class="under-video"></div>
+  <input type="button" (click)="onPlaySelectedClick()" value="Play Selected">
+  <div>{{selectedVideoDuration}}c</div>
+  <input type="range"
+         step="0.1"
+         min="0"
+         [max]="video?.duration"
+         [(ngModel)]="videoStart"
+         (ngModelChange)="onVideoStartChange()"
+         (mouseup)="onVideoStartMouseup()"
+  >
+  <input type="range"
+         step="0.1"
+         min="0"
+         [max]="video?.duration"
+         [(ngModel)]="videoEnd"
+         (ngModelChange)="onVideoEndChange()"
+         (mouseup)="onVideoEndMouseup()"
+  >
+</div>

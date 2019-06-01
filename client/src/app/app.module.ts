@@ -9,6 +9,7 @@ import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
 import {YoutubeService} from "./services/youtube.service";
 import {VideoFragmentationModule} from "./pages/video-fragmentation/video-fragmentation.module";
+import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {VideoFragmentationModule} from "./pages/video-fragmentation/video-fragme
 
     // pages
     SearchPopularModule,
+    VideoCutterModule,
     VideoFragmentationModule,
   ],
   providers: [
