@@ -4,20 +4,37 @@
   <div class="under-video"></div>
   <input type="button" (click)="onPlaySelectedClick()" value="Play Selected">
   <div>{{selectedVideoDuration}}c</div>
-  <input type="range"
-         step="0.1"
-         min="0"
-         [max]="video?.duration"
-         [(ngModel)]="videoStart"
-         (ngModelChange)="onVideoStartChange()"
-         (mouseup)="onVideoStartMouseup()"
-  >
-  <input type="range"
-         step="0.1"
-         min="0"
-         [max]="video?.duration"
-         [(ngModel)]="videoEnd"
-         (ngModelChange)="onVideoEndChange()"
-         (mouseup)="onVideoEndMouseup()"
-  >
+  <div fxLayout="row" fxLayoutGap="10px">
+    <input type="number"
+           [(ngModel)]="videoStart"
+           (ngModelChange)="onVideoStartChange()"
+           fxFlex="1 1 110px"
+    >
+    <input type="range"
+           step="any"
+           min="0"
+           fxFlex="0 1"
+           [max]="video?.duration"
+           [(ngModel)]="videoStart"
+           (ngModelChange)="onVideoStartChange()"
+           (mouseup)="onVideoStartMouseup()"
+    >
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <input type="number"
+           [(ngModel)]="videoEnd"
+           (ngModelChange)="onVideoEndChange()"
+           fxFlex="1 1 110px"
+    >
+    <input type="range"
+           step="any"
+           min="0"
+           fxFlex="0 1"
+           [max]="video?.duration"
+           [(ngModel)]="videoEnd"
+           (ngModelChange)="onVideoEndChange()"
+           (mouseup)="onVideoEndMouseup()"
+    >
+
+  </div>
 </div>

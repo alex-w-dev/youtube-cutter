@@ -121,7 +121,7 @@ export class VideoCutterComponent implements OnInit {
   }
 
   private renewSelectedVideoDuration() {
-    this.selectedVideoDuration = Math.round(this.videoEnd - this.videoStart);
+    this.selectedVideoDuration = Math.round((this.videoEnd - this.videoStart) * 100) / 100;
   }
 }
 
