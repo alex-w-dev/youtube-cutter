@@ -38,5 +38,9 @@
   "youtube": {
     "dataSource": "db",
     "public": true
+  },
+  "videoFragment": {
+    "dataSource": "db",
+    "public": true
   }
 }

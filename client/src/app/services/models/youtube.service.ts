@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {youtube_v3} from "googleapis";
 import {Observable} from "rxjs";
 import Schema$SearchListResponse = youtube_v3.Schema$SearchListResponse;
-import {ApiService} from "./api.service";
+import {ApiService} from "../api.service";
 import {HttpParams} from "@angular/common/http";
 import Schema$VideoCategoryListResponse = youtube_v3.Schema$VideoCategoryListResponse;
 

@@ -1,0 +1,27 @@
+{
+  "name": "videoFragment",
+  "plural": "video-fragments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "yVideoId": {
+      "type": "string",
+      "required": true
+    },
+    "start": {
+      "type": "number",
+      "required": true
+    },
+    "end": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {YoutubeService} from "../../services/youtube.service";
+import {YoutubeService} from "../../services/models/youtube.service";
 import {ApiService} from "../../services/api.service";
 
 interface IThumbnail {

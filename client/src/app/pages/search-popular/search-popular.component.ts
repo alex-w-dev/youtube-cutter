@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {YoutubeService} from "../../services/youtube.service";
+import {YoutubeService} from "../../services/models/youtube.service";
 import {youtube_v3} from "googleapis";
 import Schema$SearchListResponse = youtube_v3.Schema$SearchListResponse;
 import Schema$VideoCategoryListResponse = youtube_v3.Schema$VideoCategoryListResponse;

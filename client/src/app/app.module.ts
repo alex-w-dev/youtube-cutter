@@ -7,13 +7,14 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import {SearchPopularModule} from "./pages/search-popular/search-popular.module";
 import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
-import {YoutubeService} from "./services/youtube.service";
+import {YoutubeService} from "./services/models/youtube.service";
 import {VideoFragmentationModule} from "./pages/video-fragmentation/video-fragmentation.module";
 import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
+import {VideoFragmentService} from "./services/models/video-fragment.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +31,7 @@ import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
   providers: [
     ApiService,
     YoutubeService,
+    VideoFragmentService,
   ],
   bootstrap: [AppComponent]
 })
