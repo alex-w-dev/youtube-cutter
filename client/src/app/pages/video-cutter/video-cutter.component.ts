@@ -27,6 +27,8 @@ export class VideoCutterComponent implements OnInit {
   private recursVideoStart: number;
   private recursVideoEnd: number;
   private selectedVideoDuration: number;
+  private loadingProc: number = 0;
+  private videoLoaded: boolean = false;
 
   constructor(private youtubeService: YoutubeService, private apiService: ApiService) { }
 
@@ -35,17 +37,18 @@ export class VideoCutterComponent implements OnInit {
     this.youtubeService
       .getLowestVideo(this.videoId, (data) => {
         console.log(data, '----');
+        this.loadingProc = Math.round(data.loaded / data.total * 100);
       })
       .subscribe((videoData) => {
         this.video.src = videoData;
 
         this.video.addEventListener('loadedmetadata', () => {
-          // console.log(this.video.videoWidth, 'this.video.videoWidth');
-          // console.log(this.video.videoHeight, 'this.video.videoHeight');
+          this.videoLoaded = true;
           this.canvas.width = this.video.videoWidth;
           this.canvas.height = this.video.videoHeight;
           this.videoStart = 0;
           this.videoEnd = this.video.duration;
+          this.selectedVideoDuration = this.video.duration;
         })
         // this.video.play();
       });

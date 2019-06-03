@@ -1,7 +1,17 @@
 <div fxLayout="column" fxFlexFill fxLayoutGap="10px">
-  <video #video id="video" controls="controls">
-  </video>
-  <div class="under-video"></div>
+  <video #video
+         id="video"
+         controls="controls"
+         [hidden]="!videoLoaded"
+  ></video>
+  <div class="under-video"
+       [hidden]="!videoLoaded"
+  ></div>
+  <div class="loading-container"
+       [hidden]="videoLoaded"
+  >
+    Loading ... {{loadingProc}}%
+  </div>
   <input type="button" (click)="onPlaySelectedClick()" value="Play Selected">
   <div>{{selectedVideoDuration}}c</div>
   <div fxLayout="row" fxLayoutGap="10px">
