@@ -22,9 +22,6 @@ export class VideoFragmentService extends PersistedModelService<IVideoFragmentMo
   }
 
   getByYVideoId(yVideoId: string): Observable<IVideoFragmentModel[]> {
-    return this.apiService.GET(
-      `/${this.pathName}/getByYVideoId`,
-      { params: new HttpParams({ fromObject: { yVideoId }}) }
-      );
+    return this.apiService.GET(`/${this.pathName}/getByYVideoId/${yVideoId}`);
   }
 }

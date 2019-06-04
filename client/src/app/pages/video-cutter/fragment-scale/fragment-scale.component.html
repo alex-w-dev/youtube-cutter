@@ -1,0 +1,8 @@
+<div *ngFor="let videoFragment of videoFragments"
+     class="scale"
+     [style.backgroundColor]="videoFragment.color"
+     [style.width]="videoFragment.width"
+     [style.left]="videoFragment.left"
+>
+  {{videoFragment.start}} - {{videoFragment.end}}
+</div>

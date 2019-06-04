@@ -30,7 +30,7 @@ export class ApiService {
     return this.http.patch(this.getFullUrl(url), data);
   }
 
-  DELETE(url: string) {
+  DELETE(url: string): Observable<any> {
     return this.http.delete(this.getFullUrl(url));
   }
 

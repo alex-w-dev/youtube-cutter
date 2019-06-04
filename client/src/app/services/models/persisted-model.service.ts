@@ -7,6 +7,10 @@ export class PersistedModelService<T> {
 
   constructor(public apiService: ApiService) { }
 
+  delete(id: string): Observable<T> {
+    return this.apiService.DELETE(`/${this.pathName}/${id}`);
+  }
+
   create(data: T): Observable<T> {
     return this.apiService.POST(`/${this.pathName}/`, data);
   }

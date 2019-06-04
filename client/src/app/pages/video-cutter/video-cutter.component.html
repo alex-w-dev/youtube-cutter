@@ -4,17 +4,28 @@
          controls="controls"
          [hidden]="!videoLoaded"
   ></video>
-  <div class="under-video"
-       [hidden]="!videoLoaded"
-  ></div>
+  <app-fragment-scale [videoFragments]="videoFragments"
+                      [hidden]="!videoLoaded"
+  ></app-fragment-scale>
   <div class="loading-container"
        [hidden]="videoLoaded"
   >
     Loading ... {{loadingProc}}%
   </div>
+  <input type="button"
+         value="add Fragment"
+         (click)="onAddFragmentClick()"
+  >
   <div class="fragment-list" fxFlex="1 1 100%">
-    <app-video-fragment-editor *ngIf="videoLoaded"
-                               [video]="video"
-                               [videoFragment]="video"></app-video-fragment-editor>
+    <div *ngFor="let videoFragment of videoFragments">
+      <app-fragment-scale [videoFragment]="videoFragment">
+      </app-fragment-scale>
+      <div (click)="toggleSelectedVideoFragment(videoFragment)"></div>
+      <app-video-fragment-editor *ngIf="videoLoaded && videoFragment === selectedVideoFragment"
+                                 [video]="video"
+                                 [videoFragment]="videoFragment"
+                                 (onFragmentChange)="onFragmentChange(videoFragment)"
+      ></app-video-fragment-editor>
+    </div>
   </div>
 </div>

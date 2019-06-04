@@ -1,0 +1,14 @@
+:host{
+  display: block;
+  height: 20px;
+  position: relative;
+
+  .scale {
+    position: absolute;
+    height: 100%;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -14,7 +14,9 @@ module.exports = function (VideoFragment) {
   };
 
   VideoFragment.remoteMethod('getByYVideoId', {
-    "accepts": [],
+    "accepts": [{
+      arg: 'yVideoId', type: 'string', http: {source: 'path'}
+    }],
     "returns": [
       {
         "type": "array",

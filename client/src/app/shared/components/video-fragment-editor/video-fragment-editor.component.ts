@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IVideoFragmentModel} from "../../../services/models/video-fragment.service";
 
 @Component({
@@ -9,6 +9,7 @@ import {IVideoFragmentModel} from "../../../services/models/video-fragment.servi
 export class VideoFragmentEditorComponent implements OnInit {
   @Input() videoFragment: IVideoFragmentModel;
   @Input() video: HTMLVideoElement;
+  @Output() onFragmentChange: EventEmitter<IVideoFragmentModel> = new EventEmitter();
 
   private canvas: HTMLCanvasElement = document.createElement('canvas');
   private canvasContext: CanvasRenderingContext2D = this.canvas.getContext('2d');
@@ -41,6 +42,7 @@ export class VideoFragmentEditorComponent implements OnInit {
     this.recursVideoStart = this.videoEnd;
     this.renewSelectedVideoDuration();
     this.startPlaySelectedVideoRecursively();
+    this.onFragmentChange.emit(this.videoFragment);
   }
   onVideoStartMouseup() {
     if (this.videoStart > this.videoEnd) this.videoStart = this.videoEnd;
