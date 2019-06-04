@@ -14,8 +14,6 @@ export class VideoFragmentEditorComponent implements OnInit {
   private canvas: HTMLCanvasElement = document.createElement('canvas');
   private canvasContext: CanvasRenderingContext2D = this.canvas.getContext('2d');
 
-  private videoStart: number;
-  private videoEnd: number;
   private recursVideoStart: number;
   private recursVideoEnd: number;
   private selectedVideoDuration: number;
@@ -26,37 +24,36 @@ export class VideoFragmentEditorComponent implements OnInit {
     if (!this.videoFragment) throw new Error('Input videoFragment is required');
     if (!this.video) throw new Error('Input video is required');
 
-    this.videoStart = 0;
-    this.videoEnd = this.video.duration;
-    this.selectedVideoDuration = this.video.duration;
+    this.renewSelectedVideoDuration();
   }
 
   onVideoStartChange() {
-    this.recursVideoStart = this.videoStart;
-    this.recursVideoEnd = this.videoStart + 1;
+    this.recursVideoStart = this.videoFragment.start;
+    this.recursVideoEnd = this.videoFragment.start + 1;
     this.renewSelectedVideoDuration();
     this.startPlaySelectedVideoRecursively();
+    this.onFragmentChange.emit(this.videoFragment);
   }
   onVideoEndChange() {
-    this.recursVideoEnd = this.videoEnd + 1;
-    this.recursVideoStart = this.videoEnd;
+    this.recursVideoEnd = this.videoFragment.end + 1;
+    this.recursVideoStart = this.videoFragment.end;
     this.renewSelectedVideoDuration();
     this.startPlaySelectedVideoRecursively();
     this.onFragmentChange.emit(this.videoFragment);
   }
   onVideoStartMouseup() {
-    if (this.videoStart > this.videoEnd) this.videoStart = this.videoEnd;
+    if (this.videoFragment.start > this.videoFragment.end) this.videoFragment.start = this.videoFragment.end;
     this.stopVideoPlaying();
   }
   onVideoEndMouseup() {
-    if (this.videoEnd < this.videoStart) this.videoEnd = this.videoStart;
+    if (this.videoFragment.end < this.videoFragment.start) this.videoFragment.end = this.videoFragment.start;
     this.stopVideoPlaying().then(() => console.log(this.isVideoPlaying(), 'this.isVideoPlaying()'));
   }
 
 
   private onPlaySelectedClick() {
-    this.recursVideoEnd = this.videoEnd;
-    this.recursVideoStart = this.videoStart;
+    this.recursVideoEnd = this.videoFragment.end;
+    this.recursVideoStart = this.videoFragment.start;
     this.startPlaySelectedVideoRecursively();
   }
 
@@ -103,6 +100,6 @@ export class VideoFragmentEditorComponent implements OnInit {
   }
 
   private renewSelectedVideoDuration() {
-    this.selectedVideoDuration = Math.round((this.videoEnd - this.videoStart) * 100) / 100;
+    this.selectedVideoDuration = Math.round((this.videoFragment.end - this.videoFragment.start) * 100) / 100;
   }
 }

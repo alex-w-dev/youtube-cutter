@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {YoutubeService} from "../../services/models/youtube.service";
 import {ApiService} from "../../services/api.service";
 import {IVideoFragmentModel, VideoFragmentService} from "../../services/models/video-fragment.service";
+import Helper from "../../shared/classes/helper";
 
 interface IThumbnail {
   time: number;
@@ -33,10 +34,13 @@ export class VideoCutterComponent implements OnInit {
   private loadingProc: number = 0;
   private videoLoaded: boolean = false;
 
+  private throttledSaveFragment: Function = Helper.throttle(this.saveFragment, 300);
+
   constructor(private youtubeService: YoutubeService,
               private videoFragmentService: VideoFragmentService,
               private apiService: ApiService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.video = this.videoElement.nativeElement;
@@ -92,8 +96,17 @@ export class VideoCutterComponent implements OnInit {
   }
 
   onFragmentChange(v: IVideoFragment) {
-    console.log(v, 'v');
+    const converted = this.convertVideoFragmentToUIUsing(v);
+    v.color = converted.color;
+    v.left = converted.left;
+    v.width = converted.width;
+
+    this.throttledSaveFragment(v);
   }
+
+  private saveFragment(fragment: IVideoFragment) {
+    this.videoFragmentService.upsert(fragment).subscribe(() => console.log('saved'))
+  };
 
   private convertVideoFragmentToUIUsing(videoFragmentModel: IVideoFragmentModel): IVideoFragment {
     return {
