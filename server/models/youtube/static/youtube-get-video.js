@@ -30,24 +30,29 @@ async function responseWidthLoad(ctx, videoId) {
   const stat = fs.statSync(videoFilePath);
   const total = stat.size;
   ctx.res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'video/mp4' });
-  fs.createReadStream(videoFilePath).pipe(ctx.res);
+
+  return fs.createReadStream(videoFilePath)
 }
 
 async function responsePipeGoogle(ctx, videoId) {
-  getYld(videoId)
+  return getYld(videoId)
     .on('response', (res) => {
       ctx.res.set(res.headers);
       ctx.res.set('Access-Control-Expose-Headers', 'content-length');
-    })
-    .pipe(ctx.res);
+    });
 }
 
 module.exports = function (GlobalList) {
   GlobalList.getLowestVideo = function (ctx, videoId) {
     const  searchList = async () => {
-      await responsePipeGoogle(ctx, videoId);
+      const stream = await responsePipeGoogle(ctx, videoId);
 
-      await new Promise(res => setTimeout(res, 10000))
+      stream.pipe(ctx.res);
+
+      return await new Promise((res, rej) => {
+        stream.on('end', res);
+        stream.on('error', rej);
+      });
     };
 
     return searchList();
@@ -66,4 +71,8 @@ module.exports = function (GlobalList) {
       }
     ]
   })
+  GlobalList.afterRemoteError( 'getLowestVideo', function( ctx, next) {
+    //...
+    // next();
+  });
 };

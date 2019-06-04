@@ -13,7 +13,7 @@ module.exports = function (VideoFragment) {
     return getByYVideoId();
   };
 
-  GlobalList.remoteMethod('getByYVideoId', {
+  VideoFragment.remoteMethod('getByYVideoId', {
     "accepts": [],
     "returns": [
       {

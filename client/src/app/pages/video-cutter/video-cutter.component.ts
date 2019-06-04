@@ -14,8 +14,9 @@ interface IThumbnail {
   styleUrls: ['./video-cutter.component.scss']
 })
 export class VideoCutterComponent implements OnInit {
-  @Input() videoId: string = '-rdm3sPKtIg';
-  //    @Input() videoId: string = 'YE7VzlLtp-4';
+  // @Input() videoId: string = 'UFZ_EE3dH4c'; // клоун
+  // @Input() videoId: string = '-rdm3sPKtIg'; - не смешно
+  @Input() videoId: string = 'YE7VzlLtp-4'; // длинное
   @ViewChild('video') videoElement;
   video: HTMLVideoElement;
 
@@ -60,8 +61,8 @@ export class VideoCutterComponent implements OnInit {
     this.startPlaySelectedVideoRecursively();
   }
   onVideoEndChange() {
-    this.recursVideoEnd = this.videoEnd;
-    this.recursVideoStart = this.videoEnd - 1;
+    this.recursVideoEnd = this.videoEnd + 1;
+    this.recursVideoStart = this.videoEnd;
     this.renewSelectedVideoDuration();
     this.startPlaySelectedVideoRecursively();
   }
