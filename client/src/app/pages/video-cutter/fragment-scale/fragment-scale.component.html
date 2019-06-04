@@ -3,6 +3,7 @@
      [style.backgroundColor]="videoFragment.color"
      [style.width]="videoFragment.width"
      [style.left]="videoFragment.left"
+     (click)="scaleClick($event, videoFragment)"
 >
   {{videoFragment.start}} - {{videoFragment.end}}
 </div>

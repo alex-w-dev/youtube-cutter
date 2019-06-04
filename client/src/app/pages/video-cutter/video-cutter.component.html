@@ -6,6 +6,7 @@
   ></video>
   <app-fragment-scale [videoFragments]="videoFragments"
                       [hidden]="!videoLoaded"
+                      (onScaleClick)="toggleSelectedVideoFragment($event)"
   ></app-fragment-scale>
   <div class="loading-container"
        [hidden]="videoLoaded"
@@ -18,9 +19,9 @@
   >
   <div class="fragment-list" fxFlex="1 1 100%">
     <div *ngFor="let videoFragment of videoFragments">
-      <app-fragment-scale [videoFragment]="videoFragment">
-      </app-fragment-scale>
-      <div (click)="toggleSelectedVideoFragment(videoFragment)"></div>
+      <app-fragment-scale [videoFragment]="videoFragment"
+                          (onScaleClick)="toggleSelectedVideoFragment($event)"
+      ></app-fragment-scale>
       <app-video-fragment-editor *ngIf="videoLoaded && videoFragment === selectedVideoFragment"
                                  [video]="video"
                                  [videoFragment]="videoFragment"
