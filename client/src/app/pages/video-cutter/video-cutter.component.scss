@@ -2,6 +2,10 @@
   height: 100vh;
   display: block;
 
+  #video{
+    max-height: 33vh;
+  }
+
   .under-video {
     position: relative;
     height: 20px;
