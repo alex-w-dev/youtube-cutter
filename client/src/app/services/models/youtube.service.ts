@@ -53,10 +53,6 @@ export class YoutubeService {
     return this.apiService.GET('youtube/videoCategories')
   }
 
-  getLowestVideoFormat(videoId: string): Observable<IVideoFormat> {
-    return this.apiService.GET('youtube/getLowestVideoFormat/'+videoId)
-  }
-
   getLowestVideo(videoId: string, onProgress?: (v: any) => void): Observable<string> {
     return this.apiService.GET_BLOB('youtube/getLowestVideo/'+videoId, onProgress);
   }

@@ -2,14 +2,6 @@
 
 const google = require('googleapis');
 
-function getDayStart(daysBeforeToday) {
-  const getDayStart = new Date();
-  getDayStart.setHours(0,0,0,0);
-  getDayStart.setDate(getDayStart.getDate() - daysBeforeToday);
-
-  return getDayStart.toISOString();
-}
-
 module.exports = function (GlobalList) {
   GlobalList.videoCategories = function () {
     const  searchList = async () => {

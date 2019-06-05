@@ -1,0 +1,23 @@
+{
+  "name": "video",
+  "plural": "videos",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "yVideoInfo": {
+      "type": "object",
+      "required": true
+    },
+    "reviewed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
