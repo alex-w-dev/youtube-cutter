@@ -59,25 +59,36 @@ export class VideoFragmentEditorComponent implements OnInit {
 
 
   private startPlaySelectedVideoRecursively() {
-    this.stopVideoPlaying()
-      .then(() => {
-        const onTimeUpdate = () => {
-          if (this.video.currentTime > this.recursVideoEnd) {
-            this.video.currentTime = this.recursVideoStart;
-          }
-        };
+    this.startPlaySelectedVideoOnce().then((selfCompleted) => {
+      if (selfCompleted) this.startPlaySelectedVideoRecursively();
+    })
+  }
 
-        const onPause = () => {
-          this.video.removeEventListener('pause', onPause);
-          this.video.removeEventListener('timeupdate', onTimeUpdate)
-        };
+  private startPlaySelectedVideoOnce(): Promise<boolean> {
+    return new Promise((res) => {
+      this.stopVideoPlaying()
+        .then(() => {
+          let timeout;
+          let selfCompleted = false;
 
-        this.video.addEventListener('pause', onPause);
-        this.video.addEventListener('timeupdate', onTimeUpdate);
+          const onPause = () => {
+            this.video.removeEventListener('pause', onPause);
+            clearTimeout(timeout);
+            res(selfCompleted);
+          };
 
-        this.video.currentTime = this.recursVideoStart;
-        this.video.play();
-      });
+          this.video.addEventListener('pause', onPause);
+
+          this.video.currentTime = this.recursVideoStart;
+          this.video.play().then(() => {
+            timeout = setTimeout(() => {
+              selfCompleted = true;
+              this.video.pause();
+            }, (this.recursVideoEnd - this.recursVideoStart) * 1000)
+          });
+        });
+    });
+
   }
 
   private isVideoPlaying() {
