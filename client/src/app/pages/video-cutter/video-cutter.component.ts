@@ -3,6 +3,7 @@ import {YoutubeService} from "../../services/models/youtube.service";
 import {ApiService} from "../../services/api.service";
 import {IVideoFragmentModel, VideoFragmentService} from "../../services/models/video-fragment.service";
 import Helper from "../../shared/classes/helper";
+import {ActivatedRoute} from "@angular/router";
 
 interface IThumbnail {
   time: number;
@@ -38,14 +39,14 @@ export class VideoCutterComponent implements OnInit {
 
   constructor(private youtubeService: YoutubeService,
               private videoFragmentService: VideoFragmentService,
-              private apiService: ApiService,
+              private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
     this.video = this.videoElement.nativeElement;
     this.youtubeService
-      .getLowestVideo(this.videoId, (data) => {
+      .getLowestVideo(this.activatedRoute.snapshot.params.yVideoId, (data) => {
         console.log(data, '----');
         this.loadingProc = Math.round(data.loaded / data.total * 100);
       })

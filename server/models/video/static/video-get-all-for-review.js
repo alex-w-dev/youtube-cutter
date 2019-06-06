@@ -12,6 +12,9 @@ module.exports = function (Video) {
       return await Video.find({
         where: {
           reviewed: false,
+          'yVideoInfo.snippet.channelId': {
+            inq: IDS,
+          },
         }
       });
     };
