@@ -5,6 +5,6 @@
   >
     <img [src]="video.yVideoInfo.snippet.thumbnails.default.url"
          [alt]="video.yVideoInfo.snippet.title">
-    <span>{{video.yVideoInfo.snippet.title}}</span>
+    <a [routerLink]="'/video-cutter/' + video.yVideoInfo.id.videoId">{{video.yVideoInfo.snippet.title}}</a>
   </div>
 </div>

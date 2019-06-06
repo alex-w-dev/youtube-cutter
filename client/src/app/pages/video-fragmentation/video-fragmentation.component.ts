@@ -16,7 +16,7 @@ interface IThumbnail {
 export class VideoFragmentationComponent implements OnInit {
   @Input() videoId: string = '-rdm3sPKtIg';
   //    @Input() videoId: string = 'YE7VzlLtp-4';
-  @ViewChild('video') videoElement;
+  @ViewChild('video', { static: true }) videoElement;
   video: HTMLVideoElement;
 
   private videoUrl: string;

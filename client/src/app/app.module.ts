@@ -13,6 +13,7 @@ import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
 import {VideoFragmentService} from "./services/models/video-fragment.service";
 import {VideoService} from "./services/models/video.service";
 import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review.module";
+// import {MatButtonModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review
     AppRoutingModule,
     NgxYoutubePlayerModule.forRoot(),
     HttpClientModule,
+    // MatButtonModule,
 
 
     // pages

@@ -25,7 +25,7 @@ export class VideoCutterComponent implements OnInit {
   // @Input() videoId: string = 'UFZ_EE3dH4c'; // клоун
   // @Input() videoId: string = '-rdm3sPKtIg'; - не смешно
   @Input() videoId: string = 'YE7VzlLtp-4'; // длинное
-  @ViewChild('video') videoElement;
+  @ViewChild('video', { static: true }) videoElement;
   video: HTMLVideoElement;
 
   protected videoFragments: IVideoFragment[] = [];
