@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoCutterComponent } from './video-cutter.component';
 
-describe('SearchPopularComponent', () => {
+describe('VideoListForReviewComponent', () => {
   let component: VideoCutterComponent;
   let fixture: ComponentFixture<VideoCutterComponent>;
 

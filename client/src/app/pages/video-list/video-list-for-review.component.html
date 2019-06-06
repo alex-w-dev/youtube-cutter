@@ -1,0 +1,10 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxFlex="100px"
+       class="video"
+       *ngFor="let video of videos"
+  >
+    <img [src]="video.yVideoInfo.snippet.thumbnails.default.url"
+         [alt]="video.yVideoInfo.snippet.title">
+    <span>{{video.yVideoInfo.snippet.title}}</span>
+  </div>
+</div>

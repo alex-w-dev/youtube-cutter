@@ -11,6 +11,8 @@ import {YoutubeService} from "./services/models/youtube.service";
 import {VideoFragmentationModule} from "./pages/video-fragmentation/video-fragmentation.module";
 import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
 import {VideoFragmentService} from "./services/models/video-fragment.service";
+import {VideoService} from "./services/models/video.service";
+import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review.module";
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import {VideoFragmentService} from "./services/models/video-fragment.service";
     SearchPopularModule,
     VideoCutterModule,
     VideoFragmentationModule,
+    VideoListForReviewModule,
   ],
   providers: [
     ApiService,
     YoutubeService,
     VideoFragmentService,
+    VideoService,
   ],
   bootstrap: [AppComponent]
 })

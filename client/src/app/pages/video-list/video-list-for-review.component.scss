@@ -1,0 +1,12 @@
+:host{
+  height: 100vh;
+  display: block;
+
+  .container{
+    height: 100%;
+  }
+
+  .video-list{
+    overflow-y: auto;
+  }
+}

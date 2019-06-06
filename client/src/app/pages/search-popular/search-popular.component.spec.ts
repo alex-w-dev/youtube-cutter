@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchPopularComponent } from './search-popular.component';
 
-describe('SearchPopularComponent', () => {
+describe('VideoListForReviewComponent', () => {
   let component: SearchPopularComponent;
   let fixture: ComponentFixture<SearchPopularComponent>;
 
