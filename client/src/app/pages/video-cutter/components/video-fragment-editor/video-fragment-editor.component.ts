@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IVideoFragmentModel} from "../../../services/models/video-fragment.service";
+import {IVideoFragmentModel} from "../../../../services/models/video-fragment.service";
 
 @Component({
   selector: 'app-video-fragment-editor',

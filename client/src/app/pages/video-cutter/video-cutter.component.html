@@ -19,11 +19,10 @@
   >
   <div fxLayout="row" fxFlex="100%">
     <div fxLayout="column" fxLayoutGap="5px" fxFlex="100px">
-      <div *ngFor="let videoFragment of videoFragments">
-        <app-fragment-scale [videoFragment]="videoFragment"
-                            (onScaleClick)="toggleSelectedVideoFragment($event)"
-        ></app-fragment-scale>
-      </div>
+      <app-fragment-scale  *ngFor="let videoFragment of videoFragments"
+                           [videoFragment]="videoFragment"
+                          (onScaleClick)="toggleSelectedVideoFragment($event)"
+      ></app-fragment-scale>
     </div>
     <app-video-fragment-editor fxFlex="100%"
                                *ngIf="selectedVideoFragment"

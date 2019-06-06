@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output} from '@angular/core';
-import {IVideoFragment} from "../video-cutter.component";
+import {IVideoFragment} from "../../video-cutter.component";
 
 @Component({
   selector: 'app-fragment-scale',
