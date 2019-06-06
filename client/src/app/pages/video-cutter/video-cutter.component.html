@@ -17,18 +17,19 @@
          value="add Fragment"
          (click)="onAddFragmentClick()"
   >
-  <div class="fragment-list" fxFlex="1 1 100%">
-    <div fxLayout="column" fxLayoutGap="5px">
+  <div fxLayout="row" fxFlex="100%">
+    <div fxLayout="column" fxLayoutGap="5px" fxFlex="100px">
       <div *ngFor="let videoFragment of videoFragments">
         <app-fragment-scale [videoFragment]="videoFragment"
                             (onScaleClick)="toggleSelectedVideoFragment($event)"
         ></app-fragment-scale>
-        <app-video-fragment-editor *ngIf="videoLoaded && videoFragment === selectedVideoFragment"
-                                   [video]="video"
-                                   [videoFragment]="videoFragment"
-                                   (onFragmentChange)="onFragmentChange(videoFragment)"
-        ></app-video-fragment-editor>
       </div>
     </div>
+    <app-video-fragment-editor fxFlex="100%"
+                               *ngIf="selectedVideoFragment"
+                               [video]="video"
+                               [videoFragment]="selectedVideoFragment"
+                               (onFragmentChange)="onFragmentChange(selectedVideoFragment)"
+    ></app-video-fragment-editor>
   </div>
 </div>
