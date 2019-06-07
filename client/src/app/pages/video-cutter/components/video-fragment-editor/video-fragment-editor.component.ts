@@ -24,23 +24,11 @@ export class VideoFragmentEditorComponent implements OnInit {
     this.renewSelectedVideoDuration();
   }
 
-  onVideoStartChange() {
+  onTimeChange(time) {
     this.renewSelectedVideoDuration();
-    this.videoCutterService.startPlaySelectedVideoRecursively(this.videoFragment.start, this.videoFragment.start + 1);
+    this.videoCutterService.startPlaySelectedVideoRecursively(time, time + 1);
     this.onFragmentChange.emit(this.videoFragment);
   }
-  onVideoEndChange() {
-    this.renewSelectedVideoDuration();
-    this.videoCutterService.startPlaySelectedVideoRecursively(this.videoFragment.end, this.videoFragment.end + 1);
-    this.onFragmentChange.emit(this.videoFragment);
-  }
-  onVideoStartMouseup() {
-    if (this.videoFragment.start > this.videoFragment.end) this.videoFragment.start = this.videoFragment.end;
-  }
-  onVideoEndMouseup() {
-    if (this.videoFragment.end < this.videoFragment.start) this.videoFragment.end = this.videoFragment.start;
-  }
-
 
   private onPlaySelectedClick() {
     this.videoCutterService.startPlaySelectedVideoRecursively(this.videoFragment.start, this.videoFragment.end);

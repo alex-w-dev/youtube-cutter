@@ -7,6 +7,7 @@ import {FragmentScaleComponent} from "./components/fragment-scale/fragment-scale
 import {VideoFragmentEditorComponent} from "./components/video-fragment-editor/video-fragment-editor.component";
 import {RangedThumbsComponent} from "./components/ranged-thumbs/ranged-thumbs.component";
 import {VideoCutterService} from "./video-cutter.service";
+import {TimeEditorComponent} from "./components/video-fragment-editor/time-editor/time-editor.component";
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {VideoCutterService} from "./video-cutter.service";
     FragmentScaleComponent,
     VideoFragmentEditorComponent,
     RangedThumbsComponent,
+    TimeEditorComponent,
   ],
   imports: [
     CommonModule,
