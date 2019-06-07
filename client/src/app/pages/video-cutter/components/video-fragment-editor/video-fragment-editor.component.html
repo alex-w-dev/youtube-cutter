@@ -19,8 +19,7 @@
              (mouseup)="onVideoStartMouseup()"
       >
     </div>
-    <app-ranged-thumbs *ngIf="showStartThumbs"
-                       fxFlex="50px"
+    <app-ranged-thumbs fxFlex="50px"
                        [(ngModel)]="videoFragment.start"
                        [video]="video"
     ></app-ranged-thumbs>
