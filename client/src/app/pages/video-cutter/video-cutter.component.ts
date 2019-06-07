@@ -1,15 +1,9 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {YoutubeService} from "../../services/models/youtube.service";
-import {ApiService} from "../../services/api.service";
 import {IVideoFragmentModel, VideoFragmentService} from "../../services/models/video-fragment.service";
 import Helper from "../../shared/classes/helper";
 import {ActivatedRoute} from "@angular/router";
-
-interface IThumbnail {
-  time: number;
-  data: string;
-  selected?: boolean;
-}
+import {VideoCutterService} from "./video-cutter.service";
 
 export interface IVideoFragment extends IVideoFragmentModel{
   color: string;
@@ -24,7 +18,7 @@ export interface IVideoFragment extends IVideoFragmentModel{
 })
 export class VideoCutterComponent implements OnInit {
   // @Input() videoId: string = 'UFZ_EE3dH4c'; // клоун
-  // @Input() videoId: string = '-rdm3sPKtIg'; - не смешно
+  // @Input() videoId: string = '-rdm3sPKtIg'; - несмешно
   @Input() videoId: string = 'YE7VzlLtp-4'; // длинное
   @ViewChild('video', { static: true }) videoElement;
   video: HTMLVideoElement;
@@ -40,14 +34,15 @@ export class VideoCutterComponent implements OnInit {
   constructor(private youtubeService: YoutubeService,
               private videoFragmentService: VideoFragmentService,
               private activatedRoute: ActivatedRoute,
+              private videoCutterService: VideoCutterService,
   ) {
   }
 
   ngOnInit() {
     this.video = this.videoElement.nativeElement;
+    this.videoCutterService.video = this.video;
     this.youtubeService
       .getLowestVideo(this.activatedRoute.snapshot.params.yVideoId, (data) => {
-        console.log(data, '----');
         this.loadingProc = Math.round(data.loaded / data.total * 100);
       })
       .subscribe((videoData) => {

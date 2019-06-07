@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {FragmentScaleComponent} from "./components/fragment-scale/fragment-scale.component";
 import {VideoFragmentEditorComponent} from "./components/video-fragment-editor/video-fragment-editor.component";
 import {RangedThumbsComponent} from "./components/ranged-thumbs/ranged-thumbs.component";
+import {VideoCutterService} from "./video-cutter.service";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,9 @@ import {RangedThumbsComponent} from "./components/ranged-thumbs/ranged-thumbs.co
   ],
   exports: [
     VideoCutterComponent,
+  ],
+  providers: [
+    VideoCutterService,
   ]
 })
 export class VideoCutterModule { }
