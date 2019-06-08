@@ -22,4 +22,8 @@ export default class Helper {
       }
     };
   }
+
+  static round(n: number, round: number = 1): number {
+    return Math.round(n * round) / round;
+  }
 }

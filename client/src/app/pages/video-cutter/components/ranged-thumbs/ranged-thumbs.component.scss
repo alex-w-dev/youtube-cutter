@@ -1,0 +1,16 @@
+:host{
+  white-space: nowrap;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+
+  img {
+    max-height: 100%;
+
+    &.selected {
+      border: 7px solid;
+      border-image:   linear-gradient(to right, #ff827d, #7382ff) 2;
+      height: calc(100% - 14px);
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IVideoFragmentModel} from "../../../../services/models/video-fragment.service";
 import {VideoCutterService} from "../../video-cutter.service";
+import Helper from "../../../../shared/classes/helper";
 
 @Component({
   selector: 'app-video-fragment-editor',
@@ -36,6 +37,6 @@ export class VideoFragmentEditorComponent implements OnInit {
 
 
   private renewSelectedVideoDuration() {
-    this.selectedVideoDuration = Math.round((this.videoFragment.end - this.videoFragment.start) * 100) / 100;
+    this.selectedVideoDuration = Helper.round(this.videoFragment.end - this.videoFragment.start);
   }
 }

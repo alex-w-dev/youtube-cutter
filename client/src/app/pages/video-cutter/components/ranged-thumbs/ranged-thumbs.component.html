@@ -1,1 +1,4 @@
-<button (click)="onThumbClicked(30)">asdasdas</button>
+<img *ngFor="let thumb of thumbs"
+     [ngClass]="{ 'selected': thumb.selected }"
+     (click)="onThumbClicked(thumb.time)"
+     [src]="thumb.imageData">

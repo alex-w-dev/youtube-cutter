@@ -6,6 +6,7 @@ import {ValueAccessorBase} from "../../../../../shared/classes/value-accessor-ba
 @Component({
   selector: 'app-time-editor',
   templateUrl: 'time-editor.component.html',
+  styleUrls: ['time-editor.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
