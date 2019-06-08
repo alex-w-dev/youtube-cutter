@@ -7,7 +7,7 @@ export class VideoCutterService {
   video: HTMLVideoElement;
 
   constructor(
-    private videoFragmentService: VideoFragmentService
+    private videoFragmentService: VideoFragmentService,
   ) {
   }
 
@@ -75,7 +75,7 @@ export class VideoCutterService {
     return !!(this.video.currentTime > 0 && !this.video.paused && !this.video.ended && this.video.readyState > 2)
   }
 
-  private stopVideoPlaying(): Promise<void> {
+  stopVideoPlaying(): Promise<void> {
     if (this.isVideoPlaying()) {
       return new Promise((res) => {
         const onPause = () => {

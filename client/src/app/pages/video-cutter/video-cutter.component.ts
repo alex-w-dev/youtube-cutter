@@ -83,14 +83,12 @@ export class VideoCutterComponent implements OnInit {
   }
 
   onRemoveFragmentClick(v: IVideoFragment) {
-    if (confirm('Really Delete?')) {
-      this.videoFragmentService
-        .delete(v.id)
-        .subscribe(() => {
-          this.videoFragments = this.videoFragments.filter(videoFragment => videoFragment !== v);
-          if (this.selectedVideoFragment === v) this.selectedVideoFragment = null;
-        })
-    }
+    this.videoCutterService.stopVideoPlaying();
+
+    this.videoCutterService.removeFragment(v).subscribe(() => {
+      this.videoFragments = this.videoFragments.filter(videoFragment => videoFragment !== v);
+      if (this.selectedVideoFragment === v) this.selectedVideoFragment = null;
+    })
   }
 
   toggleSelectedVideoFragment(v: IVideoFragment) {

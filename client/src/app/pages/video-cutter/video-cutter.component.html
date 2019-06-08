@@ -19,8 +19,9 @@
   >
   <div fxLayout="row" fxFlex="100%">
     <div fxLayout="column" fxLayoutGap="5px" fxFlex="100px">
-      <app-fragment-scale  *ngFor="let videoFragment of videoFragments"
-                           [videoFragment]="videoFragment"
+      <app-fragment-scale *ngFor="let videoFragment of videoFragments"
+                          [ngClass]="{ 'selected' : videoFragment === selectedVideoFragment }"
+                          [videoFragment]="videoFragment"
                           (onScaleClick)="toggleSelectedVideoFragment($event)"
       ></app-fragment-scale>
     </div>
