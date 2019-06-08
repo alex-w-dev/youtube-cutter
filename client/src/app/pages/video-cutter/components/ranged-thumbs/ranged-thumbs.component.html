@@ -1,4 +1,5 @@
 <img *ngFor="let thumb of thumbs"
+     [hidden]="this.lastRenewThumbsRequest"
      [ngClass]="{ 'selected': thumb.selected }"
      (click)="onThumbClicked(thumb.time)"
      [src]="thumb.imageData">

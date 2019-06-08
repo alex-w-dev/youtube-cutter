@@ -30,12 +30,12 @@ export class TimeEditorComponent extends ValueAccessorBase<number> implements On
     if (this.maxTime <= this.minTime) throw new Error('Input maxTime must be greater than minTime');
 
     this.registerOnChange((value) => {
-      if (this.minTime > value) {
-        this.value = this.minTime;
-      }
-      if (this.maxTime < value) {
-        this.value = this.maxTime;
-      }
+      // if (this.minTime > value) {
+      //   this.value = this.minTime;
+      // }
+      // if (this.maxTime < value) {
+      //   this.value = this.maxTime;
+      // }
     })
   }
 }

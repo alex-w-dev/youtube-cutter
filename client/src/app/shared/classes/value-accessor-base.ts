@@ -20,8 +20,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor {
   }
 
   writeValue(value: T) {
-    console.log(value, 'value');
-    this._value = value;
+    this.value = value;
   }
 
   registerOnChange(fn: (value: T) => void) {

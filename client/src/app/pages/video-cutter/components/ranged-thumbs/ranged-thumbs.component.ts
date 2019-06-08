@@ -30,6 +30,9 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
   private thumbs: IThumbnail[] = [];
   private innerVideo: HTMLVideoElement;
+  private lastRenewThumbsRequest: number;
+
+  private throttledRenewThumbs: Function = Helper.throttle(this.renewThumbs, 500);
 
   constructor() {
     super();
@@ -45,7 +48,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
       this.canvas.height = this.video.videoHeight / 5;
 
       this.registerOnChange((value) => {
-        this.renewThumbs();
+        this.throttledRenewThumbs();
       });
       this.renewThumbs();
     })
@@ -56,7 +59,9 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
   }
 
   private renewThumbs() {
-    this.thumbs.length = 0;
+    const selfRenewThumbsRequest = Date.now();
+    this.lastRenewThumbsRequest = selfRenewThumbsRequest;
+    const newThumbs = [];
     const timeSet = new Set();
     for (let s = -(this.step * 5); s < (this.step * 5); s+=this.step) {
       let time = this.value + s;
@@ -68,7 +73,9 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
     const timeArray = Array.from(timeSet);
     let i = 0;
     const recursivelyGetImages  = () => {
-      return new Promise((res) => {
+      return new Promise((res, rej) => {
+        if (this.lastRenewThumbsRequest !== selfRenewThumbsRequest) return rej();
+
         const time = timeArray[i++];
 
         if (time === undefined) {
@@ -89,7 +96,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
               return Math.round(Math.abs(c - b ))  === 0;
             })();
 
-            this.thumbs.push({
+            newThumbs.push({
               imageData: dataURL,
               time: Helper.round(time, 100),
               selected: selected,
@@ -104,7 +111,11 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
     recursivelyGetImages()
       .then(() => {
-        console.log(this.thumbs, 'this.thumbs');
+        this.thumbs = newThumbs;
+        this.lastRenewThumbsRequest = null;
+      })
+      .catch(() => {
+        console.log('wait more');
       });
   }
 }
