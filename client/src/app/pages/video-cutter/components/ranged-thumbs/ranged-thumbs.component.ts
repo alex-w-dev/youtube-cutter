@@ -91,8 +91,8 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
               let a = 1;
               if (this.step === 0.1) a = 10;
               if (this.step === 0.01) a = 100;
-              const b = Math.floor(time * a);
-              const c = Math.floor(this.value * a);
+              const b = Math.floor(Helper.round(time * a, 100));
+              const c = Math.floor(Helper.round(this.value * a, 100));
               return Math.round(Math.abs(c - b ))  === 0;
             })();
 
@@ -115,7 +115,6 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
         this.lastRenewThumbsRequest = null;
       })
       .catch(() => {
-        console.log('wait more');
       });
   }
 }
