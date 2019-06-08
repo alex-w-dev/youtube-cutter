@@ -1,10 +1,41 @@
 import {Injectable} from '@angular/core';
+import {IVideoFragmentModel, VideoFragmentService} from "../../services/models/video-fragment.service";
+import {Observable, of} from "rxjs";
 
 @Injectable()
 export class VideoCutterService {
   video: HTMLVideoElement;
 
-  constructor() {
+  constructor(
+    private videoFragmentService: VideoFragmentService
+  ) {
+  }
+
+  createPrevious(videoId, endTime: number = 0): Observable<IVideoFragmentModel> {
+    return this.videoFragmentService
+      .create({
+        end: endTime,
+        start: 0,
+        yVideoId: videoId,
+      })
+  }
+
+  createNext(videoId, startTime: number = 0): Observable<IVideoFragmentModel> {
+    return this.videoFragmentService
+      .create({
+        end: this.video.duration,
+        start: startTime,
+        yVideoId: videoId,
+      })
+  }
+
+  removeFragment(fragment: IVideoFragmentModel): Observable<any> {
+    if (confirm('Really Delete?')) {
+      return this.videoFragmentService
+        .delete(fragment.id)
+    } else {
+      of(null);
+    }
   }
 
   startPlaySelectedVideoRecursively(start: number, end: number) {

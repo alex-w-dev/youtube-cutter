@@ -26,6 +26,7 @@ export class VideoCutterComponent implements OnInit {
   protected videoFragments: IVideoFragment[] = [];
   protected selectedVideoFragment: IVideoFragment;
 
+  private selectedVideoDuration: number;
   private loadingProc: number = 0;
   private videoLoaded: boolean = false;
 
@@ -57,16 +58,26 @@ export class VideoCutterComponent implements OnInit {
       });
   }
 
-  onAddFragmentClick() {
-    this.videoFragmentService
-      .create({
-        end: this.video.duration,
-        start: 0,
-        yVideoId: this.videoId,
-      })
-      .subscribe(videoFragmentModel => {
-        this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
-      })
+  onAddNextFragmentClick(startTime: number) {
+    this.videoCutterService.createNext(
+      this.videoId,
+      startTime,
+    ).subscribe((videoFragmentModel) => {
+      this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
+    });
+  }
+
+  onAddPreviousFragmentClick(endTime: number) {
+    this.videoCutterService.createPrevious(
+      this.videoId,
+      endTime,
+    ).subscribe((videoFragmentModel) => {
+      this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
+    });
+  }
+
+  private onPlaySelectedClick() {
+    this.videoCutterService.startPlaySelectedVideoRecursively(this.selectedVideoFragment.start, this.selectedVideoFragment.end);
   }
 
   onRemoveFragmentClick(v: IVideoFragment) {
@@ -75,6 +86,7 @@ export class VideoCutterComponent implements OnInit {
         .delete(v.id)
         .subscribe(() => {
           this.videoFragments = this.videoFragments.filter(videoFragment => videoFragment !== v);
+          if (this.selectedVideoFragment === v) this.selectedVideoFragment = null;
         })
     }
   }
@@ -97,6 +109,8 @@ export class VideoCutterComponent implements OnInit {
     v.left = converted.left;
     v.width = converted.width;
 
+    this.renewSelectedVideoDuration();
+
     this.throttledSaveFragment(v);
   }
 
@@ -111,6 +125,10 @@ export class VideoCutterComponent implements OnInit {
       width: `${ (videoFragmentModel.end - videoFragmentModel.start) / this.video.duration * 100 }%`,
       left: `${ videoFragmentModel.start / this.video.duration * 100 }%`,
     };
+  }
+
+  private renewSelectedVideoDuration() {
+    this.selectedVideoDuration = Helper.round(this.selectedVideoFragment.end - this.selectedVideoFragment.start);
   }
 }
 

@@ -1,6 +1,4 @@
 <div fxLayout="column" fxFlexFill fxLayoutGap="10px">
-  <input type="button" (click)="onPlaySelectedClick()" value="Play Selected">
-  <div>{{selectedVideoDuration}}sec</div>
   <app-time-editor [video]="video"
                    [maxTime]="videoFragment.end"
                    [minTime]="0"

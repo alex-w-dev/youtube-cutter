@@ -15,7 +15,7 @@
   </div>
   <input type="button"
          value="add Fragment"
-         (click)="onAddFragmentClick()"
+         (click)="onAddNextFragmentClick(video.currentTime)"
   >
   <div fxLayout="row" fxFlex="100%">
     <div fxLayout="column" fxLayoutGap="5px" fxFlex="100px">
@@ -24,11 +24,41 @@
                           (onScaleClick)="toggleSelectedVideoFragment($event)"
       ></app-fragment-scale>
     </div>
-    <app-video-fragment-editor fxFlex="100%"
-                               *ngIf="selectedVideoFragment"
-                               [video]="video"
-                               [videoFragment]="selectedVideoFragment"
-                               (onFragmentChange)="onFragmentChange(selectedVideoFragment)"
-    ></app-video-fragment-editor>
+    <div *ngIf="selectedVideoFragment"
+         fxLayout="column"
+         fxLayoutGap="10px"
+         fxFlex="100%"
+    >
+      <div fxLayout="row" fxLayoutGap="10px">
+        <button type="button"
+                fxFlexAlign="start"
+                (click)="onAddNextFragmentClick(selectedVideoFragment.end)"
+        >
+          Create NEXT Fragment
+        </button>
+        <button type="button"
+                fxFlexAlign="start"
+                (click)="onAddPreviousFragmentClick(selectedVideoFragment.start)"
+        >
+          Create PREVIOUS Fragment
+        </button>
+        <button type="button"
+                fxFlexAlign="center"
+                (click)="onPlaySelectedClick()"
+        >
+          Play selected {{selectedVideoDuration}}sec
+        </button>
+        <button type="button"
+                fxFlexAlign="end"
+                (click)="onRemoveFragmentClick(selectedVideoFragment)"
+        >
+          Remove
+        </button>
+      </div>
+      <app-video-fragment-editor [video]="video"
+                                 [videoFragment]="selectedVideoFragment"
+                                 (onFragmentChange)="onFragmentChange(selectedVideoFragment)"
+      ></app-video-fragment-editor>
+    </div>
   </div>
 </div>
