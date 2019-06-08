@@ -64,6 +64,7 @@ export class VideoCutterComponent implements OnInit {
       startTime,
     ).subscribe((videoFragmentModel) => {
       this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
+      this.reSortVideoFragments();
     });
   }
 
@@ -73,6 +74,7 @@ export class VideoCutterComponent implements OnInit {
       endTime,
     ).subscribe((videoFragmentModel) => {
       this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
+      this.reSortVideoFragments();
     });
   }
 
@@ -99,7 +101,8 @@ export class VideoCutterComponent implements OnInit {
     if (!this.video) return new Error();
 
     this.videoFragmentService.getByYVideoId(this.videoId).subscribe(value => {
-      this.videoFragments  = value.map(this.convertVideoFragmentToUIUsing.bind(this))
+      this.videoFragments  = value.map(this.convertVideoFragmentToUIUsing.bind(this));
+      this.reSortVideoFragments();
     })
   }
 
@@ -117,6 +120,10 @@ export class VideoCutterComponent implements OnInit {
   private saveFragment(fragment: IVideoFragment) {
     this.videoFragmentService.upsert(fragment).subscribe(() => console.log('saved'))
   };
+
+  private reSortVideoFragments() {
+    this.videoFragments = this.videoFragments.sort(((a, b) => a.start - b.start))
+  }
 
   private convertVideoFragmentToUIUsing(videoFragmentModel: IVideoFragmentModel): IVideoFragment {
     return {
