@@ -48,7 +48,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
       this.canvas.height = this.video.videoHeight / 5;
 
       this.registerOnChange((value) => {
-        this.throttledRenewThumbs();
+        this.renewThumbs();
       });
       this.renewThumbs();
     })
@@ -59,9 +59,9 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
   }
 
   private renewThumbs() {
+    this.thumbs = [];
     const selfRenewThumbsRequest = Date.now();
     this.lastRenewThumbsRequest = selfRenewThumbsRequest;
-    const newThumbs = [];
     const timeSet = new Set();
     for (let s = -(this.step * 5); s < (this.step * 5); s+=this.step) {
       let time = this.value + s;
@@ -96,7 +96,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
               return Math.round(Math.abs(c - b ))  === 0;
             })();
 
-            newThumbs.push({
+            this.thumbs.push({
               imageData: dataURL,
               time: Helper.round(time, 100),
               selected: selected,
@@ -111,7 +111,6 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
     recursivelyGetImages()
       .then(() => {
-        this.thumbs = newThumbs;
         this.lastRenewThumbsRequest = null;
       })
       .catch(() => {
