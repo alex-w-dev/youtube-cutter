@@ -22,4 +22,8 @@ export class PersistedModelService<T> {
   findById(id: string): Observable<T> {
     return this.apiService.GET(`/${this.pathName}/${id}`);
   }
+
+  find(): Observable<T> {
+    return this.apiService.GET(`/${this.pathName}/`);
+  }
 }

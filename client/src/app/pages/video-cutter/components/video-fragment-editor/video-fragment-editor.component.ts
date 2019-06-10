@@ -21,6 +21,7 @@ export class VideoFragmentEditorComponent implements OnInit {
   @Output() onFragmentChange: EventEmitter<IVideoFragmentModel> = new EventEmitter();
 
   private lastVideoFragmentSettedTime: number = 0;
+  private tagsEditing: boolean = false;
 
   constructor(
     private videoCutterService: VideoCutterService,

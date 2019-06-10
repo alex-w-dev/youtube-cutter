@@ -8,6 +8,8 @@ import {VideoFragmentEditorComponent} from "./components/video-fragment-editor/v
 import {RangedThumbsComponent} from "./components/ranged-thumbs/ranged-thumbs.component";
 import {VideoCutterService} from "./video-cutter.service";
 import {TimeEditorComponent} from "./components/video-fragment-editor/time-editor/time-editor.component";
+import { TagsEditorModalComponent } from './components/tags-editor-modal/tags-editor-modal.component';
+import {StaticModalWrapperModule} from "../../shared/components/static-modal-wrapper/static-modal-wrapper.module";
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import {TimeEditorComponent} from "./components/video-fragment-editor/time-edito
     VideoFragmentEditorComponent,
     RangedThumbsComponent,
     TimeEditorComponent,
+    TagsEditorModalComponent,
   ],
   imports: [
     CommonModule,
     FlexLayoutModule,
     FormsModule,
+    StaticModalWrapperModule,
   ],
   exports: [
     VideoCutterComponent,

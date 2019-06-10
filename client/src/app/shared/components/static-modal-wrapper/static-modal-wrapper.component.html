@@ -1,0 +1,9 @@
+<div class="wall" (click)="onWallClick()"></div>
+<div fxLayout="column" class="window">
+  <div class="container" fxFlex="100%">
+    <ng-content></ng-content>
+  </div>
+  <div class="actions" fxFlex="50px">
+    <button (click)="onCloseClick()">Close</button>
+  </div>
+</div>

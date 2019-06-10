@@ -1,0 +1,23 @@
+:host{
+  .wall {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: rgba(128, 128, 128, 0.50);
+  }
+
+  .window {
+    position: fixed;
+    z-index: 2;
+    width: 80vw;
+    height: 80vh;
+    left: 10vw;
+    top: 10vh;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: white;
+  }
+}

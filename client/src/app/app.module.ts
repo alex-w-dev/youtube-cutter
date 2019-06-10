@@ -13,6 +13,8 @@ import {VideoCutterModule} from "./pages/video-cutter/video-cutter.module";
 import {VideoFragmentService} from "./services/models/video-fragment.service";
 import {VideoService} from "./services/models/video.service";
 import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review.module";
+import {VideoTagService} from "./services/models/video-tag.service";
+import { StaticModalWrapperComponent } from './shared/components/static-modal-wrapper/static-modal-wrapper.component';
 // import {MatButtonModule} from "@angular/material";
 
 @NgModule({
@@ -38,6 +40,7 @@ import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review
     YoutubeService,
     VideoFragmentService,
     VideoService,
+    VideoTagService,
   ],
   bootstrap: [AppComponent]
 })
