@@ -4,8 +4,8 @@
            [(ngModel)]="newTagName">
     <button type="button" (click)="onCreateNewTagClick()">Create</button>
   </div>
-  <div fxLayout="row">
-    <label fxFlex="20%" fxLayoutGap="10px"
+  <div fxLayout="row wrap">
+    <label fxFlex="20" fxLayoutGap="10px"
            *ngFor="let tagName of tagNames">
       <input type="checkbox"
              [checked]="this.videoFragment.tagNames.includes(tagName)"

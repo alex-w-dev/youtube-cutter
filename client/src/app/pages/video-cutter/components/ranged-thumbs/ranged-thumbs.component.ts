@@ -59,6 +59,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
   }
 
   private renewThumbs() {
+    const newThumbs = [];
     this.thumbs = [];
     const selfRenewThumbsRequest = Date.now();
     this.lastRenewThumbsRequest = selfRenewThumbsRequest;
@@ -96,7 +97,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
               return Math.round(Math.abs(c - b ))  === 0;
             })();
 
-            this.thumbs.push({
+            newThumbs.push({
               imageData: dataURL,
               time: Helper.round(time, 100),
               selected: selected,
@@ -112,6 +113,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
     recursivelyGetImages()
       .then(() => {
         this.lastRenewThumbsRequest = null;
+        this.thumbs = newThumbs;
       })
       .catch(() => {
       });
