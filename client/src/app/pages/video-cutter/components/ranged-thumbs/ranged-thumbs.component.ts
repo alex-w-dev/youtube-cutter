@@ -3,6 +3,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ValueAccessorBase} from "../../../../shared/classes/value-accessor-base";
 import Helper from "../../../../shared/classes/helper";
 import VideoHelper from "../../../../shared/classes/video-helper";
+import {VideoCutterService} from "../../video-cutter.service";
 
 interface IThumbnail {
   time: number;
@@ -34,7 +35,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
   private throttledRenewThumbs: Function = Helper.throttle(this.renewThumbs, 500);
 
-  constructor() {
+  constructor(private videoCutterService: VideoCutterService) {
     super();
   }
 
@@ -71,35 +72,37 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
     const timeArray = Array.from(timeSet);
     let i = 0;
     const recursivelyGetImages  = () => {
-      return new Promise((res, rej) => {
-        if (this.thumbs !== newThumbs) return rej();
+      const time = timeArray[i++];
 
-        const time = timeArray[i++];
+      if (this.thumbs !== newThumbs || time === undefined) return;
 
-        if (time === undefined) {
-          res();
-        } else {
-          VideoHelper.setCurrentTime(this.innerVideo, time)
-            .then(() => {
-              this.canvasContext.drawImage(this.innerVideo, 0, 0, this.canvas.width, this.canvas.height);
-              const dataURL = this.canvas.toDataURL();
+      if (this.videoCutterService.thumbsCache[time]) {
+        console.log(1, '1');
+        newThumbs.push({
+          imageData: this.videoCutterService.thumbsCache[time],
+          time: Helper.round(time, 100),
+          selected: VideoHelper.isCurrentTime(this.value, time, this.step),
+        });
 
-              newThumbs.push({
-                imageData: dataURL,
-                time: Helper.round(time, 100),
-                selected: VideoHelper.isCurrentTime(this.value, time, this.step),
-              });
+        recursivelyGetImages()
+      } else {
+        console.log(2, '2');
+        VideoHelper.setCurrentTime(this.innerVideo, time)
+          .then(() => {
+            this.canvasContext.drawImage(this.innerVideo, 0, 0, this.canvas.width, this.canvas.height);
+            const dataURL = this.canvas.toDataURL();
 
-              res(recursivelyGetImages())
+            newThumbs.push({
+              imageData: dataURL,
+              time: Helper.round(time, 100),
+              selected: VideoHelper.isCurrentTime(this.value, time, this.step),
             });
-        }
-      });
+
+            recursivelyGetImages()
+          });
+      }
     };
 
-    recursivelyGetImages()
-      .then(() => {
-      })
-      .catch(() => {
-      });
+    recursivelyGetImages();
   }
 }

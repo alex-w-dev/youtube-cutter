@@ -37,11 +37,13 @@ export default class VideoHelper {
 
   static setCurrentTime(video: IV, time: number): Promise<void> {
     return new Promise((res, rej) => {
+      if (video.currentTime === time) return res();
+
       const onTimeUpdate = () => {
-        video.removeEventListener('timeupdate', onTimeUpdate);
         res();
+        video.removeEventListener('seeked', onTimeUpdate);
       };
-      video.addEventListener('timeupdate', onTimeUpdate);
+      video.addEventListener('seeked', onTimeUpdate);
       video.currentTime = time;
     })
   }
