@@ -46,5 +46,9 @@
   "video": {
     "dataSource": "mongo",
     "public": true
+  },
+  "videoTag": {
+    "dataSource": "mongo",
+    "public": true
   }
 }

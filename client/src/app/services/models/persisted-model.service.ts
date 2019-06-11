@@ -23,7 +23,7 @@ export class PersistedModelService<T> {
     return this.apiService.GET(`/${this.pathName}/${id}`);
   }
 
-  find(): Observable<T> {
+  find(): Observable<T[]> {
     return this.apiService.GET(`/${this.pathName}/`);
   }
 }

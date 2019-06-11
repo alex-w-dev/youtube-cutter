@@ -18,6 +18,10 @@
     "end": {
       "type": "number",
       "required": true
+    },
+    "tagNames": {
+      "type": ["string"],
+      "default": []
     }
   },
   "validations": [],

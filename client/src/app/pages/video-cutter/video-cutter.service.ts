@@ -17,6 +17,7 @@ export class VideoCutterService {
         end: endTime,
         start: 0,
         yVideoId: videoId,
+        tagNames: [],
       })
   }
 
@@ -26,6 +27,7 @@ export class VideoCutterService {
         end: this.video.duration,
         start: startTime,
         yVideoId: videoId,
+        tagNames: [],
       })
   }
 

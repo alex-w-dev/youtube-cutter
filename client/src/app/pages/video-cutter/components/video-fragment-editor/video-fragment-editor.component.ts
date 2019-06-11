@@ -38,4 +38,9 @@ export class VideoFragmentEditorComponent implements OnInit {
     this.videoCutterService.startPlaySelectedVideoRecursively(time, time + 1);
     this.onFragmentChange.emit(this._videoFragment);
   }
+
+  onCloseTagsModal() {
+    this.tagsEditing = false;
+    this.onFragmentChange.emit(this._videoFragment);
+  }
 }

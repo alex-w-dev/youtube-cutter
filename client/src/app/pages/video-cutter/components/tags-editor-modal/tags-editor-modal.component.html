@@ -1,3 +1,16 @@
-<p>
-  tags-editor-modal works!
-</p>
+<div fxLayout="column" fxLayoutGap="20px">
+  <div>
+    <input type="text"
+           [(ngModel)]="newTagName">
+    <button type="button" (click)="onCreateNewTagClick()">Create</button>
+  </div>
+  <div fxLayout="row">
+    <label fxFlex="20%" fxLayoutGap="10px"
+           *ngFor="let tagName of tagNames">
+      <input type="checkbox"
+             [checked]="this.videoFragment.tagNames.includes(tagName)"
+             (click)="onTagClick(tagName)">
+      <span>{{tagName}}</span>
+    </label>
+  </div>
+</div>

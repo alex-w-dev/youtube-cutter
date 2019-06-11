@@ -9,6 +9,7 @@ export interface IVideoFragmentModel {
   yVideoId: string;
   start: number;
   end: number;
+  tagNames: string[];
 }
 
 @Injectable({

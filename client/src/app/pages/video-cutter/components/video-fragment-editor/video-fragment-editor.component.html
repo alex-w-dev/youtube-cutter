@@ -1,9 +1,9 @@
 <div fxLayout="column" fxFlexFill fxLayoutGap="10px">
   <div>
-    <button (click)="tagsEditing = true">Show modal</button>
+    <button (click)="tagsEditing = true">Edit Tags ({{videoFragment.tagNames.length}})</button>
     <app-static-modal-wrapper *ngIf="tagsEditing"
-                              (close)="tagsEditing = false">
-      <app-tags-editor-modal></app-tags-editor-modal>
+                              (close)="onCloseTagsModal()">
+      <app-tags-editor-modal [videoFragment]="videoFragment"></app-tags-editor-modal>
     </app-static-modal-wrapper>
   </div>
 
