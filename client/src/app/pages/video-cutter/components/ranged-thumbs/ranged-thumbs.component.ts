@@ -31,7 +31,6 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
   private thumbs: IThumbnail[] = [];
   private innerVideo: HTMLVideoElement;
-  private lastRenewThumbsRequest: number;
 
   private throttledRenewThumbs: Function = Helper.throttle(this.renewThumbs, 500);
 
@@ -60,10 +59,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
   }
 
   private renewThumbs() {
-    const newThumbs = [];
-    this.thumbs = [];
-    const selfRenewThumbsRequest = Date.now();
-    this.lastRenewThumbsRequest = selfRenewThumbsRequest;
+    const newThumbs = this.thumbs = [];
     const timeSet = new Set();
     for (let s = -(this.step * 5); s < (this.step * 5); s+=this.step) {
       let time = this.value + s;
@@ -76,7 +72,7 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
     let i = 0;
     const recursivelyGetImages  = () => {
       return new Promise((res, rej) => {
-        if (this.lastRenewThumbsRequest !== selfRenewThumbsRequest) return rej();
+        if (this.thumbs !== newThumbs) return rej();
 
         const time = timeArray[i++];
 
@@ -88,20 +84,10 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
               this.canvasContext.drawImage(this.innerVideo, 0, 0, this.canvas.width, this.canvas.height);
               const dataURL = this.canvas.toDataURL();
 
-              // todo redo
-              const selected = (() => {
-                let a = 1;
-                if (this.step === 0.1) a = 10;
-                if (this.step === 0.01) a = 100;
-                const b = Math.floor(Helper.round(time * a, 100));
-                const c = Math.floor(Helper.round(this.value * a, 100));
-                return Math.round(Math.abs(c - b ))  === 0;
-              })();
-
               newThumbs.push({
                 imageData: dataURL,
                 time: Helper.round(time, 100),
-                selected: selected,
+                selected: VideoHelper.isCurrentTime(this.value, time, this.step),
               });
 
               res(recursivelyGetImages())
@@ -112,8 +98,6 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
 
     recursivelyGetImages()
       .then(() => {
-        this.lastRenewThumbsRequest = null;
-        this.thumbs = newThumbs;
       })
       .catch(() => {
       });

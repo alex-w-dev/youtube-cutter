@@ -46,6 +46,15 @@ export default class VideoHelper {
     })
   }
 
+  static isCurrentTime(currentTime: number, searchTime: number, step: number) {
+    let a = 1;
+    if (step === 0.1) a = 10;
+    if (step === 0.01) a = 100;
+    const b = Math.floor(Helper.round(searchTime * a, 100));
+    const c = Math.floor(Helper.round(currentTime * a, 100));
+    return Math.round(Math.abs(c - b ))  === 0;
+  }
+
   static isVideoPlaying(video: IV) {
     return !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2)
   }
