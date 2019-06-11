@@ -2,6 +2,7 @@ import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angul
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ValueAccessorBase} from "../../../../shared/classes/value-accessor-base";
 import Helper from "../../../../shared/classes/helper";
+import VideoHelper from "../../../../shared/classes/video-helper";
 
 interface IThumbnail {
   time: number;
@@ -82,30 +83,29 @@ export class RangedThumbsComponent extends ValueAccessorBase<number> implements 
         if (time === undefined) {
           res();
         } else {
-          const onTimeUpdate = () => {
-            this.innerVideo.removeEventListener('timeupdate', onTimeUpdate);
-            this.canvasContext.drawImage(this.innerVideo, 0, 0, this.canvas.width, this.canvas.height);
-            const dataURL = this.canvas.toDataURL();
+          VideoHelper.setCurrentTime(this.innerVideo, time)
+            .then(() => {
+              this.canvasContext.drawImage(this.innerVideo, 0, 0, this.canvas.width, this.canvas.height);
+              const dataURL = this.canvas.toDataURL();
 
-            // todo redo
-            const selected = (() => {
-              let a = 1;
-              if (this.step === 0.1) a = 10;
-              if (this.step === 0.01) a = 100;
-              const b = Math.floor(Helper.round(time * a, 100));
-              const c = Math.floor(Helper.round(this.value * a, 100));
-              return Math.round(Math.abs(c - b ))  === 0;
-            })();
+              // todo redo
+              const selected = (() => {
+                let a = 1;
+                if (this.step === 0.1) a = 10;
+                if (this.step === 0.01) a = 100;
+                const b = Math.floor(Helper.round(time * a, 100));
+                const c = Math.floor(Helper.round(this.value * a, 100));
+                return Math.round(Math.abs(c - b ))  === 0;
+              })();
 
-            newThumbs.push({
-              imageData: dataURL,
-              time: Helper.round(time, 100),
-              selected: selected,
+              newThumbs.push({
+                imageData: dataURL,
+                time: Helper.round(time, 100),
+                selected: selected,
+              });
+
+              res(recursivelyGetImages())
             });
-            res(recursivelyGetImages());
-          };
-          this.innerVideo.addEventListener('timeupdate', onTimeUpdate);
-          this.innerVideo.currentTime = time;
         }
       });
     };

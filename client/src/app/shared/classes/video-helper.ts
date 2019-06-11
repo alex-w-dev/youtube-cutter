@@ -1,3 +1,5 @@
+import Helper from "./helper";
+
 interface IV extends HTMLVideoElement {}
 
 export default class VideoHelper {
@@ -31,7 +33,17 @@ export default class VideoHelper {
           });
         });
     });
+  }
 
+  static setCurrentTime(video: IV, time: number): Promise<void> {
+    return new Promise((res, rej) => {
+      const onTimeUpdate = () => {
+        video.removeEventListener('timeupdate', onTimeUpdate);
+        res();
+      };
+      video.addEventListener('timeupdate', onTimeUpdate);
+      video.currentTime = time;
+    })
   }
 
   static isVideoPlaying(video: IV) {
