@@ -93,6 +93,7 @@ export class VideoCutterComponent implements OnInit {
 
   toggleSelectedVideoFragment(v: IVideoFragment) {
     this.selectedVideoFragment = v;
+    this.video.currentTime = this.selectedVideoFragment.start;
   }
 
   updateVideoFragments() {
