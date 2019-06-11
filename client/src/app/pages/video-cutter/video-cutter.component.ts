@@ -63,8 +63,7 @@ export class VideoCutterComponent implements OnInit {
       this.videoId,
       startTime,
     ).subscribe((videoFragmentModel) => {
-      this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
-      this.reSortVideoFragments();
+      this.pushVideoFragment(videoFragmentModel);
     });
   }
 
@@ -73,9 +72,15 @@ export class VideoCutterComponent implements OnInit {
       this.videoId,
       endTime,
     ).subscribe((videoFragmentModel) => {
-      this.videoFragments.push(this.convertVideoFragmentToUIUsing(videoFragmentModel));
-      this.reSortVideoFragments();
+      this.pushVideoFragment(videoFragmentModel);
     });
+  }
+
+  private pushVideoFragment(videoFragmentModel: IVideoFragmentModel) {
+    const newVideoFragment = this.convertVideoFragmentToUIUsing(videoFragmentModel);
+    this.videoFragments.push(newVideoFragment);
+    this.toggleSelectedVideoFragment(newVideoFragment);
+    this.reSortVideoFragments();
   }
 
   private onPlaySelectedClick() {
