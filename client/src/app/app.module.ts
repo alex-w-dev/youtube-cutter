@@ -16,6 +16,8 @@ import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review
 import {VideoTagService} from "./services/models/video-tag.service";
 import { StaticModalWrapperComponent } from './shared/components/static-modal-wrapper/static-modal-wrapper.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FragmentListComponent } from './pages/fragment-list/fragment-list.component';
+import {FragmentListModule} from "./pages/fragment-list/fragment-list.module";
 // import {MatButtonModule} from "@angular/material";
 
 @NgModule({
@@ -27,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     NgxYoutubePlayerModule.forRoot(),
     HttpClientModule,
+    BrowserAnimationsModule,
     // MatButtonModule,
 
 
@@ -35,7 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VideoCutterModule,
     VideoFragmentationModule,
     VideoListForReviewModule,
-    BrowserAnimationsModule,
+    FragmentListModule,
   ],
   providers: [
     ApiService,
