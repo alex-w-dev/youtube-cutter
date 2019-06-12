@@ -18,6 +18,7 @@ import { StaticModalWrapperComponent } from './shared/components/static-modal-wr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FragmentListComponent } from './pages/fragment-list/fragment-list.component';
 import {FragmentListModule} from "./pages/fragment-list/fragment-list.module";
+import {MatButtonModule} from "@angular/material";
 // import {MatButtonModule} from "@angular/material";
 
 @NgModule({
@@ -29,6 +30,7 @@ import {FragmentListModule} from "./pages/fragment-list/fragment-list.module";
     AppRoutingModule,
     NgxYoutubePlayerModule.forRoot(),
     HttpClientModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     // MatButtonModule,
 

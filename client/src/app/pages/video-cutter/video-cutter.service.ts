@@ -31,6 +31,7 @@ export class VideoCutterService {
         start: 0,
         yVideoId: videoId,
         tagNames: [],
+        grade: 0,
       })
   }
 
@@ -41,6 +42,7 @@ export class VideoCutterService {
         start: startTime,
         yVideoId: videoId,
         tagNames: [],
+        grade: 0,
       })
   }
 

@@ -1,22 +1,38 @@
-<div fxLayout="column" fxFlexFill fxLayoutGap="10px">
-  <div>
-    <button (click)="tagsEditing = true">Edit Tags ({{videoFragment.tagNames.length}})</button>
-    <app-static-modal-wrapper *ngIf="tagsEditing"
-                              (close)="onCloseTagsModal()">
-      <app-tags-editor-modal [videoFragment]="videoFragment"></app-tags-editor-modal>
-    </app-static-modal-wrapper>
-  </div>
+<div fxLayout="column" fxFlexFill fxLayoutGap="10px" >
+  <mat-tab-group [selectedIndex]="0">
+    <mat-tab [label]="'Start Time (' + videoFragment.start + ' sec)'">
+      <app-time-editor [video]="video"
+                       [maxTime]="videoFragment.end"
+                       [minTime]="0"
+                       [(ngModel)]="videoFragment.start"
+                       (ngModelChange)="onTimeChange($event)"
+      ></app-time-editor>
+    </mat-tab>
+    <mat-tab [label]="'End Time(' + videoFragment.end + ' sec)'">
+      <app-time-editor [video]="video"
+                       [maxTime]="video.duration"
+                       [minTime]="videoFragment.start"
+                       [(ngModel)]="videoFragment.end"
+                       (ngModelChange)="onTimeChange($event)"
+      ></app-time-editor>
+    </mat-tab>
+    <mat-tab [label]="'Edit Tags ('+videoFragment.tagNames.length+')'">
+      <app-tags-editor [videoFragment]="videoFragment" (changed)="onChangedTags()"></app-tags-editor>
+    </mat-tab>
+    <mat-tab [label]="'Grade (' + videoFragment.grade + ')'">
+      <div>
+        1 - bad; 10 good
+      </div>
+      <div>
+        <span>{{videoFragment.grade}}</span>
+        <input type="range"
+               [(ngModel)]="videoFragment.grade"
+               (ngModelChange)="onChangedTags()"
+               step="1"
+               min="0"
+               max="10">
+      </div>
 
-  <app-time-editor [video]="video"
-                   [maxTime]="videoFragment.end"
-                   [minTime]="0"
-                   [(ngModel)]="videoFragment.start"
-                   (ngModelChange)="onTimeChange($event)"
-  ></app-time-editor>
-  <app-time-editor [video]="video"
-                   [maxTime]="video.duration"
-                   [minTime]="videoFragment.start"
-                   [(ngModel)]="videoFragment.end"
-                   (ngModelChange)="onTimeChange($event)"
-  ></app-time-editor>
+    </mat-tab>
+  </mat-tab-group>
 </div>

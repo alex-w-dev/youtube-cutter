@@ -10,7 +10,7 @@ export class FragmentListComponent implements OnInit {
 
   fragments: IVideoFragmentModel[];
 
-  displayedColumns: string[] = ['id', 'yVideoId', 'tagNames'];
+  displayedColumns: string[] = ['id', 'yVideoId', 'tagNames', 'grade'];
 
   constructor(
     private videoFragmentService: VideoFragmentService,

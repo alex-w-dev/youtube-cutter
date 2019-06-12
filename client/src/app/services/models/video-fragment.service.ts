@@ -9,6 +9,7 @@ export interface IVideoFragmentModel {
   yVideoId: string;
   start: number;
   end: number;
+  grade: number;
   tagNames: string[];
 }
 

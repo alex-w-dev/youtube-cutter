@@ -1,14 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IVideoFragmentModel} from "../../../../services/models/video-fragment.service";
 import {VideoTagService} from "../../../../services/models/video-tag.service";
 
 @Component({
-  selector: 'app-tags-editor-modal',
+  selector: 'app-tags-editor',
   templateUrl: './tags-editor-modal.component.html',
   styleUrls: ['./tags-editor-modal.component.scss']
 })
 export class TagsEditorModalComponent implements OnInit {
   @Input() videoFragment: IVideoFragmentModel;
+  @Output() changed: EventEmitter<void> = new EventEmitter();
 
   private tagNames: string[] = [];
   private newTagName: string = '';
@@ -35,6 +36,8 @@ export class TagsEditorModalComponent implements OnInit {
     } else {
       this.videoFragment.tagNames.push(tagName);
     }
+
+    this.changed.next();
   }
 
   onCreateNewTagClick() {

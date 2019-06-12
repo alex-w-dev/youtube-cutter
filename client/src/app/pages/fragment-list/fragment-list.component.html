@@ -1,24 +1,23 @@
 <table mat-table [dataSource]="fragments">
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="yVideoId">
     <th mat-header-cell *matHeaderCellDef> Youtube VideoID </th>
     <td mat-cell *matCellDef="let element"> {{element.yVideoId}} </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="tagNames">
     <th mat-header-cell *matHeaderCellDef> tagNames </th>
     <td mat-cell *matCellDef="let element"> {{element.tagNames.join(', ')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="grade">
+    <th mat-header-cell *matHeaderCellDef> Grade </th>
+    <td mat-cell *matCellDef="let element"> {{element.grade}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

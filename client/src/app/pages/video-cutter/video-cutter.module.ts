@@ -10,6 +10,7 @@ import {VideoCutterService} from "./video-cutter.service";
 import {TimeEditorComponent} from "./components/video-fragment-editor/time-editor/time-editor.component";
 import { TagsEditorModalComponent } from './components/tags-editor-modal/tags-editor-modal.component';
 import {StaticModalWrapperModule} from "../../shared/components/static-modal-wrapper/static-modal-wrapper.module";
+import {MatTabsModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {StaticModalWrapperModule} from "../../shared/components/static-modal-wra
     FlexLayoutModule,
     FormsModule,
     StaticModalWrapperModule,
+    MatTabsModule,
   ],
   exports: [
     VideoCutterComponent,
