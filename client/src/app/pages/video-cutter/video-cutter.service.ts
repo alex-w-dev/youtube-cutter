@@ -83,12 +83,12 @@ export class VideoCutterService {
     const step = 1;
 
 
-
+    console.time();
     innerVideo.addEventListener('loadedmetadata', () => {
       const recursively = () => {
         VideoHelper.setCurrentTime(innerVideo, time)
           .then(() => {
-            if (time > innerVideo.duration || selfThumbsCache !== this.thumbsCache) return;
+            if (time > innerVideo.duration || selfThumbsCache !== this.thumbsCache) return console.timeEnd();
 
             console.log(time, 'of', innerVideo.duration);
 
