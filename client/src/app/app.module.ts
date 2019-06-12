@@ -15,6 +15,7 @@ import {VideoService} from "./services/models/video.service";
 import {VideoListForReviewModule} from "./pages/video-list/video-list-for-review.module";
 import {VideoTagService} from "./services/models/video-tag.service";
 import { StaticModalWrapperComponent } from './shared/components/static-modal-wrapper/static-modal-wrapper.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import {MatButtonModule} from "@angular/material";
 
 @NgModule({
@@ -34,6 +35,7 @@ import { StaticModalWrapperComponent } from './shared/components/static-modal-wr
     VideoCutterModule,
     VideoFragmentationModule,
     VideoListForReviewModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     ApiService,
