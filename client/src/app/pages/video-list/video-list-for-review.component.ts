@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IVideoModel, VideoService} from "../../services/models/video.service";
+import {IGetAllForReviewResp, IVideoModel, VideoService} from "../../services/models/video.service";
 
 @Component({
   selector: 'app-video-list-for-review',
@@ -7,7 +7,7 @@ import {IVideoModel, VideoService} from "../../services/models/video.service";
   styleUrls: ['./video-list-for-review.component.scss']
 })
 export class VideoListForReviewComponent implements OnInit {
-  videos: IVideoModel[];
+  videos: IGetAllForReviewResp[];
 
   constructor(private videoService: VideoService) { }
 

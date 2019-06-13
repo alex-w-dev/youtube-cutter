@@ -19,7 +19,7 @@ export interface IVideoFragment extends IVideoFragmentModel{
 export class VideoCutterComponent implements OnInit {
   // @Input() videoId: string = 'UFZ_EE3dH4c'; // клоун
   // @Input() videoId: string = '-rdm3sPKtIg'; - несмешно
-  @Input() videoId: string = 'YE7VzlLtp-4'; // длинное
+  videoId: string; // длинное
   @ViewChild('video', { static: true }) videoElement;
   video: HTMLVideoElement;
 
@@ -40,10 +40,11 @@ export class VideoCutterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.videoId = this.activatedRoute.snapshot.params.yVideoId;
     this.video = this.videoElement.nativeElement;
     this.videoCutterService.video = this.video;
     this.youtubeService
-      .getLowestVideo(this.activatedRoute.snapshot.params.yVideoId, (data) => {
+      .getLowestVideo(this.videoId, (data) => {
         this.loadingProc = Math.round(data.loaded / data.total * 100);
       })
       .subscribe((videoData) => {

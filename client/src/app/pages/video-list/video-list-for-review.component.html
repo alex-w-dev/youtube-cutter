@@ -6,5 +6,6 @@
     <img [src]="video.yVideoInfo.snippet.thumbnails.default.url"
          [alt]="video.yVideoInfo.snippet.title">
     <a [routerLink]="'/video-cutter/' + video.yVideoInfo.id.videoId">{{video.yVideoInfo.snippet.title}}</a>
+    ----------- <span>{{video.videoFragmentCount}}</span>
   </div>
 </div>

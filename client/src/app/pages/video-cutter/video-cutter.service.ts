@@ -73,7 +73,6 @@ export class VideoCutterService {
   }
 
   private startGenerateThumbsCache() {
-    console.log(11, '11');
     const canvas: HTMLCanvasElement = document.createElement('canvas');
     canvas.width = this.video.videoWidth / 5;
     canvas.height = this.video.videoHeight / 5;

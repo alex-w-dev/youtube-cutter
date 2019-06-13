@@ -7,8 +7,13 @@ import {ApiService} from "../api.service";
 
 export interface IVideoModel {
   yVideoInfo: Schema$SearchResult,
+  yVideoId: string,
   reviewed: boolean,
   id?: string,
+}
+
+export interface IGetAllForReviewResp extends IVideoModel{
+  videoFragmentCount: number;
 }
 
 @Injectable({
@@ -21,7 +26,7 @@ export class VideoService extends PersistedModelService<IVideoModel> {
     super(apiService);
   }
 
-  getAllForReview(): Observable<IVideoModel[]> {
+  getAllForReview(): Observable<IGetAllForReviewResp[]> {
     return this.apiService.GET(`/${this.pathName}/getAllForReview`)
   }
 }

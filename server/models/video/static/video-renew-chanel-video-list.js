@@ -19,9 +19,10 @@ module.exports = function (Video) {
       });
 
       for (const item of videoList.data.items) {
-        if (!(await Video.count({ 'yVideoInfo.id.videoId': item.id.videoId  }))) {
+        if (!(await Video.count({ 'yVideoId': item.id.videoId  }))) {
           await Video.create({
             yVideoInfo: item,
+            yVideoId: item.id.videoId,
           });
         }
       }
